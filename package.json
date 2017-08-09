@@ -16,7 +16,8 @@
     "less-loader": "^4.0.5",
     "lodash": "^4.16.2",
     "moment": "^2.10.6",
-    "vue": "^2.2.0"
+    "vue": "^2.2.0",
+    "vue-router": "^2.7.0"
   },
   "devDependencies": {
     "cross-env": "^5.0.1",
