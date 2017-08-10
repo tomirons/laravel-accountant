@@ -2,7 +2,6 @@
 
 namespace TomIrons\Accountant\Http\Controllers;
 
-
 class HomeController extends Controller
 {
     /**
