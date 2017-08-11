@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Dashboard Routes...
-Route::get('/api/stats', 'StatsController@index');
+// Balance routes...
+Route::get('/api/balance', 'BalanceController@index');
+
+// Charge routes...
+Route::get('/api/charges', 'ChargesController@index');
 
 Route::get('/', 'HomeController@index');
 Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
