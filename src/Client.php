@@ -93,7 +93,7 @@ class Client
     /**
      * Paginate the results.
      *
-     * @return StripePaginator
+     * @return Paginator
      */
     public function paginate()
     {
