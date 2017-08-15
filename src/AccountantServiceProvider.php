@@ -41,7 +41,7 @@ class AccountantServiceProvider extends ServiceProvider
         Route::group([
             'prefix' => 'accountant',
             'namespace' => 'TomIrons\Accountant\Http\Controllers',
-            'middleware' => 'web',
+            'middleware' => 'web'
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
