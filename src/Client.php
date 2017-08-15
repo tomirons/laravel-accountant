@@ -2,14 +2,13 @@
 
 namespace TomIrons\Accountant;
 
-use TomIrons\Accountant\Paginator;
-use Illuminate\Support\Collection;
-use Stripe\Balance;
-use Stripe\BalanceTransaction;
 use Stripe\Charge;
-use Stripe\Customer;
 use Stripe\Stripe;
 use LogicException;
+use Stripe\Balance;
+use Stripe\Customer;
+use Stripe\BalanceTransaction;
+use Illuminate\Support\Collection;
 
 class Client
 {
@@ -58,7 +57,7 @@ class Client
         return $this->setClass(Charge::all([
             'limit' => $this->limit(),
             'ending_before' => $this->endPoint(),
-            'starting_after' => $this->startPoint()
+            'starting_after' => $this->startPoint(),
         ]));
     }
 
@@ -72,7 +71,7 @@ class Client
         return $this->setClass(Customer::all([
             'limit' => $this->limit(),
             'ending_before' => $this->endPoint(),
-            'starting_after' => $this->startPoint()
+            'starting_after' => $this->startPoint(),
         ]));
     }
 
@@ -86,7 +85,7 @@ class Client
         return $this->setClass(BalanceTransaction::all([
             'limit' => $this->limit(),
             'ending_before' => $this->endPoint(),
-            'starting_after' => $this->startPoint()
+            'starting_after' => $this->startPoint(),
         ]));
     }
 
@@ -111,7 +110,7 @@ class Client
             $this->currentPage(),
             [
                 'path' => request()->url(),
-                'query' => request()->query()
+                'query' => request()->query(),
             ]
         );
     }
