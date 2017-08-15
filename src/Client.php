@@ -6,9 +6,9 @@ use Stripe\Stripe;
 use LogicException;
 use Illuminate\Support\Collection;
 use Stripe\Charge as StripeCharge;
-use Stripe\Collection as StripeCollection;
 use Stripe\Balance as StripeBalance;
 use Stripe\Customer as StripeCustomer;
+use Stripe\Collection as StripeCollection;
 use Stripe\BalanceTransaction as StripeTransaction;
 
 class Client
