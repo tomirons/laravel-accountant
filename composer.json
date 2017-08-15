@@ -23,7 +23,12 @@
       "TomIrons\\Accountant\\": "src/"
     }
   },
-  "extra": {
+  "autoload-dev": {
+    "psr-4": {
+      "TomIrons\\Accountant\\Tests\\": "tests"
+    }
+  },
+    "extra": {
     "branch-alias": {
       "dev-master": "1.0-dev"
     },
