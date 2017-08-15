@@ -6,6 +6,7 @@ use Stripe\Stripe;
 use LogicException;
 use Illuminate\Support\Collection;
 use Stripe\Charge as StripeCharge;
+use Stripe\Collection as StripeCollection;
 use Stripe\Balance as StripeBalance;
 use Stripe\Customer as StripeCustomer;
 use Stripe\BalanceTransaction as StripeTransaction;
@@ -40,7 +41,7 @@ class Client
     /**
      * Retrieve the balance object.
      *
-     * @return Client
+     * @return $this
      */
     public function balance()
     {
@@ -50,7 +51,7 @@ class Client
     /**
      * Retrieve all charges.
      *
-     * @return Client
+     * @return $this
      */
     public function charges()
     {
@@ -64,7 +65,7 @@ class Client
     /**
      * Retrieve all customers.
      *
-     * @return Client
+     * @return $this
      */
     public function customers()
     {
@@ -78,7 +79,7 @@ class Client
     /**
      * Retrieve recent transactions.
      *
-     * @return Client
+     * @return $this
      */
     public function transactions()
     {
@@ -118,10 +119,10 @@ class Client
     /**
      * Set the class for the client.
      *
-     * @param $class
+     * @param StripeCollection $class
      * @return $this
      */
-    protected function setClass($class)
+    protected function setClass(StripeCollection $class)
     {
         $this->class = $class;
 
@@ -181,10 +182,10 @@ class Client
     /**
      * Set the previous and next starting points.
      *
-     * @param $old
-     * @param $new
+     * @param string $old
+     * @param string $new
      */
-    private function setPoints($before, $after)
+    private function setPoints(string $before, string $after)
     {
         session()->put('accountant.api.ending_before', $before);
         session()->put('accountant.api.starting_after', $after);
