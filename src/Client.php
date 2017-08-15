@@ -2,7 +2,7 @@
 
 namespace TomIrons\Accountant;
 
-use Illuminate\Pagination\Paginator;
+use TomIrons\Accountant\Paginator;
 use Illuminate\Support\Collection;
 use Stripe\Balance;
 use Stripe\BalanceTransaction;
@@ -109,7 +109,10 @@ class Client
             $collection,
             $this->limit(),
             $this->currentPage(),
-            [request()->url(), request()->query()]
+            [
+                'path' => request()->url(),
+                'query' => request()->query()
+            ]
         );
     }
 
