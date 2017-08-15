@@ -44,7 +44,7 @@ class Client
      */
     public function balance()
     {
-        return $this->setClass(Balance::retrieve());
+        return $this->setClass(StripeBalance::retrieve());
     }
 
     /**
@@ -54,7 +54,7 @@ class Client
      */
     public function charges()
     {
-        return $this->setClass(Charge::all([
+        return $this->setClass(StripeCharge::all([
             'limit' => $this->limit(),
             'ending_before' => $this->endPoint(),
             'starting_after' => $this->startPoint(),
@@ -68,7 +68,7 @@ class Client
      */
     public function customers()
     {
-        return $this->setClass(Customer::all([
+        return $this->setClass(StripeCustomer::all([
             'limit' => $this->limit(),
             'ending_before' => $this->endPoint(),
             'starting_after' => $this->startPoint(),
@@ -82,7 +82,7 @@ class Client
      */
     public function transactions()
     {
-        return $this->setClass(BalanceTransaction::all([
+        return $this->setClass(StripeTransaction::all([
             'limit' => $this->limit(),
             'ending_before' => $this->endPoint(),
             'starting_after' => $this->startPoint(),
