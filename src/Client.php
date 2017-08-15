@@ -32,9 +32,9 @@ class Client
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Stripe $stripe)
     {
-        Stripe::setApiKey(config('services.stripe.key'));
+        $stripe->setApiKey(config('services.stripe.key'));
         $this->limit = config('accountant.limit', 10);
     }
 
