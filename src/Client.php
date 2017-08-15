@@ -2,12 +2,12 @@
 
 namespace TomIrons\Accountant;
 
-use Stripe\Charge;
+use Stripe\Charge as StripeCharge;
 use Stripe\Stripe;
 use LogicException;
-use Stripe\Balance;
-use Stripe\Customer;
-use Stripe\BalanceTransaction;
+use Stripe\Balance as StripeBalance;
+use Stripe\Customer as StripeCustomer;
+use Stripe\BalanceTransaction as StripeTransaction;
 use Illuminate\Support\Collection;
 
 class Client
