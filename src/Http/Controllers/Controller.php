@@ -17,6 +17,7 @@ class Controller extends BaseController
     /**
      * Create a new controller instance.
      *
+     * @param Client $client
      * @return void
      */
     public function __construct(Client $client)
