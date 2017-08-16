@@ -16,7 +16,7 @@ class Paginator extends BasePaginator
         $this->resetQuery();
 
         if ($this->currentPage() > 2) {
-            $this->addQuery('ending_before', session()->get('accountant.api.ending_before'));
+            $this->addQuery('end', session()->get('accountant.api.end'));
         }
 
         return parent::previousPageUrl();
@@ -32,7 +32,7 @@ class Paginator extends BasePaginator
         $this->resetQuery();
 
         if ($this->items->count() == $this->perPage()) {
-            $this->addQuery('starting_after', session()->get('accountant.api.starting_after'));
+            $this->addQuery('start', session()->get('accountant.api.start'));
 
             return $this->url($this->currentPage() + 1);
         }
@@ -43,6 +43,6 @@ class Paginator extends BasePaginator
      */
     private function resetQuery()
     {
-        array_forget($this->query, ['ending_before', 'starting_after']);
+        array_forget($this->query, ['start', 'end']);
     }
 }
