@@ -77,7 +77,7 @@ class Client
      * @param StripeCollection $class
      * @return $this
      */
-    protected function setClass(StripeCollection $class)
+    protected function class(StripeCollection $class)
     {
         $this->class = $class;
 

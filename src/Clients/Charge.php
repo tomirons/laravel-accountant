@@ -18,16 +18,21 @@ class Charge extends Client implements ClientContract, Listable
      */
     public function all()
     {
-        return $this->setClass(StripeCharge::all([
+        return $this->class(StripeCharge::all([
             'limit' => $this->limit(),
             'ending_before' => $this->end(),
             'starting_after' => $this->start(),
         ]));
     }
 
+    /**
+     * Create a new charge.
+     *
+     * @param $data
+     */
     public function create($data)
     {
-        // TODO: Implement create() method.
+        return StripeCharge::create($data);
     }
 
     /**
@@ -41,8 +46,15 @@ class Charge extends Client implements ClientContract, Listable
         return StripeCharge::retrieve($id);
     }
 
+    /**
+     * Update a charge.
+     *
+     * @param $id
+     * @param $data
+     * @return StripeCharge
+     */
     public function update($id, $data)
     {
-        // TODO: Implement update() method.
+        return StripeCharge::update($id, $data);
     }
 }
