@@ -7,6 +7,7 @@ Route::get('/api/balance', 'BalanceController@index');
 
 // Charge routes...
 Route::get('/api/charges', 'ChargesController@index');
+Route::get('/api/charges/{id}', 'ChargesController@show');
 
 Route::get('/', 'HomeController@index');
 Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
