@@ -2,13 +2,14 @@
 
 namespace TomIrons\Accountant\Clients;
 
+use Psy\Util\Str;
 use TomIrons\Accountant\Client;
 use Stripe\Charge as StripeCharge;
 use TomIrons\Accountant\Contracts\Client as ClientContract;
 use TomIrons\Accountant\Contracts\Deleteable;
 use TomIrons\Accountant\Contracts\Listable;
 
-class Charge extends Client implements ClientContract, Deleteable, Listable
+class Charge extends Client implements ClientContract, Listable
 {
     /**
      * Get all of the charges.
@@ -43,10 +44,5 @@ class Charge extends Client implements ClientContract, Deleteable, Listable
     public function update($id, $data)
     {
         // TODO: Implement update() method.
-    }
-
-    public function delete($id)
-    {
-        // TODO: Implement delete() method.
     }
 }
