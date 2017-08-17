@@ -27,12 +27,4 @@ interface Client
      * @return $this
      */
     public function update($id, $data);
-
-    /**
-     * Delete an object.
-     *
-     * @param $id
-     * @return $this
-     */
-    public function delete($id);
 }
