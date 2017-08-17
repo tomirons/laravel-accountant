@@ -29,6 +29,8 @@ class AccountantServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/accountant.php', 'accountant'
         );
+
+        $this->app->bind(\TomIrons\Accountant\Contracts\Client::class, Client::class);
     }
 
     /**
