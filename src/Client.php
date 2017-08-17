@@ -10,6 +10,7 @@ use Stripe\Balance as StripeBalance;
 use Stripe\Customer as StripeCustomer;
 use Stripe\Collection as StripeCollection;
 use Stripe\BalanceTransaction as StripeTransaction;
+use TomIrons\Accountant\Clients\Charge as ChargeClient;
 
 class Client
 {
@@ -25,77 +26,34 @@ class Client
      *
      * @var int
      */
-    private $limit;
+    protected $limit;
+
+    /**
+     * Current page/
+     *
+     * @var int
+     */
+    protected $currentPage;
 
     /**
      * Create a new Client instance.
      *
      * @return void
      */
-    public function __construct(Stripe $stripe)
+    public function __construct()
     {
-        $stripe->setApiKey(config('services.stripe.key'));
+        Stripe::setApiKey(config('services.stripe.key'));
         $this->limit = config('accountant.limit', 10);
-    }
-
-    /**
-     * Retrieve the balance object.
-     *
-     * @return $this
-     */
-    public function balance()
-    {
-        return $this->setClass(StripeBalance::retrieve());
-    }
-
-    /**
-     * Retrieve all charges.
-     *
-     * @return $this
-     */
-    public function charges()
-    {
-        return $this->setClass(StripeCharge::all([
-            'limit' => $this->limit(),
-            'ending_before' => $this->endPoint(),
-            'starting_after' => $this->startPoint(),
-        ]));
-    }
-
-    /**
-     * Retrieve all customers.
-     *
-     * @return $this
-     */
-    public function customers()
-    {
-        return $this->setClass(StripeCustomer::all([
-            'limit' => $this->limit(),
-            'ending_before' => $this->endPoint(),
-            'starting_after' => $this->startPoint(),
-        ]));
-    }
-
-    /**
-     * Retrieve recent transactions.
-     *
-     * @return $this
-     */
-    public function transactions()
-    {
-        return $this->setClass(StripeTransaction::all([
-            'limit' => $this->limit(),
-            'ending_before' => $this->endPoint(),
-            'starting_after' => $this->startPoint(),
-        ]));
     }
 
     /**
      * Paginate the results.
      *
+     * @param string $path
+     * @param string $query
      * @return Paginator
      */
-    public function paginate()
+    public function paginate($path, $query)
     {
         if ($this->class->object !== 'list' || ! is_array($this->class->data)) {
             throw new LogicException("Object must be a 'list' in order to paginate.");
@@ -103,16 +61,13 @@ class Client
 
         $collection = new Collection($this->class->data);
 
-        $this->setPoints($collection->first()->id, $collection->last()->id);
+        $this->points($collection->first()->id, $collection->last()->id);
 
         return new Paginator(
             $collection,
             $this->limit(),
             $this->currentPage(),
-            [
-                'path' => request()->url(),
-                'query' => request()->query(),
-            ]
+            compact('path', 'query')
         );
     }
 
@@ -130,23 +85,13 @@ class Client
     }
 
     /**
-     * Get the current page.
-     *
-     * @return int
-     */
-    private function currentPage()
-    {
-        return (int) request('page', 1);
-    }
-
-    /**
      * Get the 'starting_after' value for the API call.
      *
      * @return string
      */
-    private function startPoint()
+    protected function start()
     {
-        return request('starting_after', null);
+        return request('start', null);
     }
 
     /**
@@ -154,9 +99,9 @@ class Client
      *
      * @return string
      */
-    private function endPoint()
+    protected function end()
     {
-        return request('ending_before', null);
+        return request('end', null);
     }
 
     /**
@@ -164,30 +109,41 @@ class Client
      *
      * @return int
      */
-    private function limit()
+    protected function limit()
     {
         return $this->limit;
     }
 
     /**
-     * Get the number of items to be retrieved from the API call.
+     * Get / set the start and end points.
      *
-     * @return int
+     * @param string $start
+     * @param string|null $end
      */
-    private function apiLimit()
+    protected function points($start, $end = null)
     {
-        return $this->limit() + 1;
+        if (str_contains($start, ['start', 'end'])) {
+            return session()->get('accountant.api.' . $start);
+        }
+
+        session()->put('accountant.api.start', $end);
+        session()->put('accountant.api.end', $start);
     }
 
     /**
-     * Set the previous and next starting points.
+     * Get / set the current page.
      *
-     * @param string $old
-     * @param string $new
+     * @param string|int $page
+     * @return $this
      */
-    private function setPoints(string $before, string $after)
+    public function currentPage($page = null)
     {
-        session()->put('accountant.api.ending_before', $before);
-        session()->put('accountant.api.starting_after', $after);
+        if (is_null($page)) {
+            return $this->currentPage;
+        }
+
+        $this->currentPage = $page;
+
+        return $this;
     }
 }
