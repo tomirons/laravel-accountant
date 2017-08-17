@@ -26,17 +26,7 @@ class Charge extends Client implements ClientContract, Listable
     }
 
     /**
-     * Create a new charge.
-     *
-     * @param $data
-     */
-    public function create($data)
-    {
-        return StripeCharge::create($data);
-    }
-
-    /**
-     * Get a single charge.
+     * Return a charge object.
      *
      * @param $id
      * @return StripeCharge
@@ -47,7 +37,17 @@ class Charge extends Client implements ClientContract, Listable
     }
 
     /**
-     * Update a charge.
+     * Create a new charge.
+     *
+     * @param $data
+     */
+    public function create($data)
+    {
+        return StripeCharge::create($data);
+    }
+
+    /**
+     * Update an existing charge.
      *
      * @param $id
      * @param $data
