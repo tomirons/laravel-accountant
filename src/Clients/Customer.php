@@ -8,7 +8,7 @@ use TomIrons\Accountant\Contracts\Deleteable;
 use TomIrons\Accountant\Contracts\Listable;
 use Stripe\Customer as StripeCustomer;
 
-class Customer extends Client implements ClientContract, Deleteable, Listable
+class Customer extends Client
 {
     /**
      * Get all of the customers.

@@ -12,7 +12,7 @@ use Stripe\Collection as StripeCollection;
 use Stripe\BalanceTransaction as StripeTransaction;
 use TomIrons\Accountant\Clients\Charge as ChargeClient;
 
-class Client
+abstract class Client
 {
     /**
      * Current data object.
@@ -35,6 +35,8 @@ class Client
      */
     protected $currentPage;
 
+    protected $name;
+
     /**
      * Create a new Client instance.
      *
@@ -44,6 +46,11 @@ class Client
     {
         Stripe::setApiKey(config('services.stripe.key'));
         $this->limit = config('accountant.limit', 10);
+    }
+
+    public function getStripeClass()
+    {
+        return app('Stripe' . ucfirst($this->name));
     }
 
     /**
@@ -74,12 +81,17 @@ class Client
     /**
      * Set the class for the client.
      *
-     * @param StripeCollection $class
+     * @param string $name
+     * @param $params
      * @return $this
      */
-    protected function class(StripeCollection $class)
+    protected function class()
     {
-        $this->class = $class;
+        $this->class = $this->getStripeClass()::all([
+            'limit' => $this->limit(),
+            'ending_before' => $this->end(),
+            'starting_after' => $this->start(),
+        ]);
 
         return $this;
     }
@@ -146,4 +158,17 @@ class Client
 
         return $this;
     }
+
+    public function all()
+    {
+        return $this->class();
+    }
+
+    public function __call($method, $args)
+    {
+        $this->getStripeClass()::$method;
+    }
+
+
+
 }
