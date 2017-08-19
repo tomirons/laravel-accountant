@@ -9,7 +9,7 @@ use TomIrons\Accountant\Contracts\Client as ClientContract;
 use TomIrons\Accountant\Contracts\Deleteable;
 use TomIrons\Accountant\Contracts\Listable;
 
-class Charge extends Client implements ClientContract, Listable
+class Charge extends Client
 {
     /**
      * Get all of the charges.
