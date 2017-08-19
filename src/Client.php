@@ -5,12 +5,6 @@ namespace TomIrons\Accountant;
 use Stripe\Stripe;
 use LogicException;
 use Illuminate\Support\Collection;
-use Stripe\Charge as StripeCharge;
-use Stripe\Balance as StripeBalance;
-use Stripe\Customer as StripeCustomer;
-use Stripe\Collection as StripeCollection;
-use Stripe\BalanceTransaction as StripeTransaction;
-use TomIrons\Accountant\Clients\Charge as ChargeClient;
 
 abstract class Client
 {
@@ -50,7 +44,7 @@ abstract class Client
 
     public function getStripeClass()
     {
-        return app('Stripe' . ucfirst($this->name));
+        return app('Stripe\\' . ucfirst($this->name));
     }
 
     /**
@@ -164,9 +158,9 @@ abstract class Client
         return $this->class();
     }
 
-    public function __call($method, $args)
+    public function __call(string $method, $args = null)
     {
-        $this->getStripeClass()::$method;
+        $this->getStripeClass()::$method($args);
     }
 
 

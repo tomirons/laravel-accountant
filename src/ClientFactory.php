@@ -4,9 +4,8 @@ namespace TomIrons\Accountant;
 
 
 use Illuminate\Contracts\Foundation\Application;
-use TomIrons\Accountant\Contracts\FactoryContract;
 
-class ClientFactory implements FactoryContract
+class ClientFactory
 {
     protected $app;
 
