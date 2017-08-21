@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,5 +15,8 @@ mix
     .setPublicPath('public')
     .js('resources/assets/js/app.js', 'public/js')
     .less('resources/assets/less/app.less', 'public/css')
-    .copy('resources/assets/img', 'public/img')
-    .version();
+    .copy('resources/assets/img', 'public/img');
+
+if (mix.inProduction()) {
+    mix.version();
+}
