@@ -66,15 +66,7 @@ class AccountantServiceProvider extends ServiceProvider
     public function defineAssetPublishing()
     {
         $this->publishes([
-            __DIR__.'/../public/js' => public_path('vendor/accountant/js'),
-        ], 'accountant-assets');
-
-        $this->publishes([
-            __DIR__.'/../public/css' => public_path('vendor/accountant/css'),
-        ], 'accountant-assets');
-
-        $this->publishes([
-            __DIR__.'/../public/img' => public_path('vendor/accountant/img'),
+            __DIR__.'/../public' => public_path('vendor/accountant'),
         ], 'accountant-assets');
     }
 }
