@@ -15,7 +15,9 @@ mix
     .setPublicPath('public')
     .js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
-    .copy('resources/assets/img', 'public/img');
+    .copy('resources/assets/img', 'public/img')
+    .sourceMaps()
+    .copy('public', '../../Sites/laravel-55/public/vendor/accountant');
 
 if (mix.inProduction()) {
     mix.version();
