@@ -3,19 +3,11 @@
 namespace TomIrons\Accountant\Http\Controllers;
 
 use Illuminate\Http\Request;
+use TomIrons\Accountant\ClientFactory;
 use TomIrons\Accountant\Clients\Charge;
 
 class ChargesController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(Charge $charge)
-    {
-        $this->client = $charge;
-    }
 
     /**
      * Return all charges.
@@ -24,9 +16,10 @@ class ChargesController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->client->all()
+        return $this->factory->charge->all()
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
+
     }
 
     /**

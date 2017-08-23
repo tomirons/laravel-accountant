@@ -55,7 +55,7 @@ class AccountantServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'accountant');
+//        $this->loadViewsFrom(__DIR__.'/../resources/views', 'accountant');
     }
 
     /**
@@ -65,16 +65,16 @@ class AccountantServiceProvider extends ServiceProvider
      */
     public function defineAssetPublishing()
     {
-        $this->publishes([
-            __DIR__.'/../public/js' => public_path('vendor/accountant/js'),
-        ], 'accountant-assets');
-
-        $this->publishes([
-            __DIR__.'/../public/css' => public_path('vendor/accountant/css'),
-        ], 'accountant-assets');
-
-        $this->publishes([
-            __DIR__.'/../public/img' => public_path('vendor/accountant/img'),
-        ], 'accountant-assets');
+//        $this->publishes([
+//            __DIR__.'/../public/js' => public_path('vendor/accountant/js'),
+//        ], 'accountant-assets');
+//
+//        $this->publishes([
+//            __DIR__.'/../public/css' => public_path('vendor/accountant/css'),
+//        ], 'accountant-assets');
+//
+//        $this->publishes([
+//            __DIR__.'/../public/img' => public_path('vendor/accountant/img'),
+//        ], 'accountant-assets');
     }
 }
