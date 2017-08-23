@@ -11,5 +11,5 @@ class Controller extends BaseController
      *
      * @var Object
      */
-    protected $client;
+    protected $factory;
 }
