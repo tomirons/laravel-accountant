@@ -11,7 +11,10 @@ use TomIrons\Accountant\Contracts\Listable;
 
 class Charge extends Client
 {
+    /**
+     * Name of the stripe class to retrieve.
+     *
+     * @var string
+     */
     protected $name = 'Charge';
-
-
 }

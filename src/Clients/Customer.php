@@ -10,7 +10,10 @@ use Stripe\Customer as StripeCustomer;
 
 class Customer extends Client
 {
+    /**
+     * Name of the stripe class to retrieve.
+     *
+     * @var string
+     */
     protected $name = 'Customer';
-
-
 }
