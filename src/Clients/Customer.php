@@ -10,5 +10,7 @@ use Stripe\Customer as StripeCustomer;
 
 class Customer extends Client
 {
+    protected $name = 'Customer';
+
 
 }

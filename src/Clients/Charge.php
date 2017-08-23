@@ -11,5 +11,7 @@ use TomIrons\Accountant\Contracts\Listable;
 
 class Charge extends Client
 {
+    protected $name = 'Charge';
+
 
 }
