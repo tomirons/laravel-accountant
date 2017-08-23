@@ -29,8 +29,6 @@ abstract class Client
      */
     protected $currentPage;
 
-    protected $name;
-
     /**
      * Create a new Client instance.
      *
@@ -42,9 +40,41 @@ abstract class Client
         $this->limit = config('accountant.limit', 10);
     }
 
+    /**
+     * Call method on the stripe class if it doesn't exist.
+     *
+     * @param $method
+     * @param null $args
+     */
+    public function __call($method, $args = null)
+    {
+        $this->getStripeClass()::$method($args);
+    }
+
+    /**
+     * Return the stripe class for the client.
+     *
+     * @return \Illuminate\Foundation\Application|mixed
+     */
     public function getStripeClass()
     {
         return app('Stripe\\' . ucfirst($this->name));
+    }
+
+    /**
+     * Set the class for the pagination.
+     *
+     * @return $this
+     */
+    public function all()
+    {
+        $this->class = $this->getStripeClass()::all([
+            'limit' => $this->limit(),
+            'ending_before' => $this->end(),
+            'starting_after' => $this->start(),
+        ]);
+
+        return $this;
     }
 
     /**
@@ -70,24 +100,6 @@ abstract class Client
             $this->currentPage(),
             compact('path', 'query')
         );
-    }
-
-    /**
-     * Set the class for the client.
-     *
-     * @param string $name
-     * @param $params
-     * @return $this
-     */
-    protected function class()
-    {
-        $this->class = $this->getStripeClass()::all([
-            'limit' => $this->limit(),
-            'ending_before' => $this->end(),
-            'starting_after' => $this->start(),
-        ]);
-
-        return $this;
     }
 
     /**
@@ -152,17 +164,4 @@ abstract class Client
 
         return $this;
     }
-
-    public function all()
-    {
-        return $this->class();
-    }
-
-    public function __call(string $method, $args = null)
-    {
-        $this->getStripeClass()::$method($args);
-    }
-
-
-
 }
