@@ -55,7 +55,7 @@ abstract class Client
      * Gets the name of the Stripe Client name
      * @return string
      */
-    abstract function getClientName(): string;
+    abstract public function getClientName(): string;
 
     /**
      * Return the stripe class for the client.

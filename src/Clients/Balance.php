@@ -11,7 +11,7 @@ class Balance extends Client
      * Gets the name of the Stripe Client name
      * @return string
      */
-    function getClientName(): string
+    public function getClientName(): string
     {
         return 'Balance';
     }
