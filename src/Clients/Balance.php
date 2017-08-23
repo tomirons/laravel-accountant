@@ -2,10 +2,10 @@
 
 namespace TomIrons\Accountant\Clients;
 
-use Stripe\BalanceTransaction;
-use TomIrons\Accountant\Contracts\Client as ClientContract;
 
-class Balance implements ClientContract
+use TomIrons\Accountant\Client;
+
+class Balance extends Client
 {
     /**
      * Name of the stripe class to retrieve.
@@ -13,4 +13,13 @@ class Balance implements ClientContract
      * @var string
      */
     protected $name = 'Balance';
+
+    /**
+     * Gets the name of the Stripe Client name
+     * @return string
+     */
+    function getClientName(): string
+    {
+        return 'Balance';
+    }
 }

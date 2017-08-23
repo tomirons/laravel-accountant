@@ -16,4 +16,13 @@ class Customer extends Client
      * @var string
      */
     protected $name = 'Customer';
+
+    /**
+     * Gets the name of the Stripe Client name
+     * @return string
+     */
+    function getClientName(): string
+    {
+        return 'Customer';
+    }
 }

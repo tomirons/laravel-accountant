@@ -17,4 +17,13 @@ class Charge extends Client
      * @var string
      */
     protected $name = 'Charge';
+
+    /**
+     * Gets the name of the Stripe Client name
+     * @return string
+     */
+    function getClientName(): string
+    {
+        return 'Charge';
+    }
 }

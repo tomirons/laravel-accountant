@@ -52,6 +52,12 @@ abstract class Client
     }
 
     /**
+     * Gets the name of the Stripe Client name
+     * @return string
+     */
+    abstract function getClientName(): string;
+
+    /**
      * Return the stripe class for the client.
      *
      * @return \Illuminate\Foundation\Application|mixed
@@ -84,7 +90,7 @@ abstract class Client
      * @param string $query
      * @return Paginator
      */
-    public function paginate($path, $query)
+    public function paginate($path, $query): Paginator
     {
         if ($this->class->object !== 'list' || ! is_array($this->class->data)) {
             throw new LogicException("Object must be a 'list' in order to paginate.");
@@ -127,7 +133,7 @@ abstract class Client
      *
      * @return int
      */
-    protected function limit()
+    protected function limit(): int
     {
         return $this->limit;
     }
