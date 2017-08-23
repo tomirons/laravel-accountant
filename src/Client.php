@@ -64,7 +64,7 @@ abstract class Client
      */
     public function getStripeClass()
     {
-        return app('Stripe\\' . ucfirst($this->name));
+        return app('Stripe\\' . ucfirst($this->getClientName()));
     }
 
     /**
