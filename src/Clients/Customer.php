@@ -11,60 +11,11 @@ use Stripe\Customer as StripeCustomer;
 class Customer extends Client
 {
     /**
-     * Get all of the customers.
-     *
-     * @return $this
+     * Gets the name of the Stripe Client name
+     * @return string
      */
-    public function all()
+    public function getClientName(): string
     {
-        return $this->class(StripeCustomer::all([
-            'limit' => $this->limit(),
-            'ending_before' => $this->end(),
-            'starting_after' => $this->start(),
-        ]));
-    }
-
-    /**
-     * Return a customer object.
-     *
-     * @param $id
-     * @return StripeCustomer
-     */
-    public function retrieve($id)
-    {
-        return StripeCustomer::retrieve($id);
-    }
-
-    /**
-     * Create a new customer.
-     *
-     * @param $data
-     * @return StripeCustomer
-     */
-    public function create($data)
-    {
-        return StripeCustomer::create($data);
-    }
-
-    /**
-     * Update an existing customer.
-     *
-     * @param $id
-     * @param $data
-     * @return StripeCustomer
-     */
-    public function update($id, $data)
-    {
-        return StripeCustomer::update($id, $data);
-    }
-
-    /**
-     * Delete a customer.
-     * @param $id
-     * @return StripeCustomer
-     */
-    public function delete($id)
-    {
-        return StripeCustomer::retrieve($id)->delete();
+        return 'Customer';
     }
 }
