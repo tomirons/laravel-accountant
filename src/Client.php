@@ -16,13 +16,6 @@ abstract class Client
     protected $class;
 
     /**
-     * The number of items to be shown per page.
-     *
-     * @var int
-     */
-    protected $limit;
-
-    /**
      * Current page/
      *
      * @var int
@@ -37,7 +30,6 @@ abstract class Client
     public function __construct()
     {
         Stripe::setApiKey(config('services.stripe.key'));
-        $this->limit = config('accountant.pagination.limit', 10);
     }
 
     /**
@@ -135,7 +127,7 @@ abstract class Client
      */
     protected function limit(): int
     {
-        return $this->limit;
+        return config('accountant.pagination.limit', 10);
     }
 
     /**
