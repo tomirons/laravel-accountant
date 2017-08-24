@@ -37,7 +37,7 @@ abstract class Client
     public function __construct()
     {
         Stripe::setApiKey(config('services.stripe.key'));
-        $this->limit = config('accountant.limit', 10);
+        $this->limit = config('accountant.pagination.limit', 10);
     }
 
     /**
