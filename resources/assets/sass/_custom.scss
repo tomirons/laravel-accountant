@@ -1,3 +1,11 @@
 .navbar .fa {
   font-size: 1.5em;
 }
+
+.table > tbody > tr > th {
+  vertical-align: middle;
+}
+
+.table > tbody > tr:hover {
+  cursor: pointer;
+}
