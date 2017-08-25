@@ -41,8 +41,28 @@ class Paginator extends BasePaginator
     /**
      * Remove start and end points from the query.
      */
-    private function resetQuery()
+    protected function resetQuery()
     {
         array_forget($this->query, ['start', 'end']);
+    }
+
+    /**
+     * Determine if there are enough items to split into multiple pages.
+     *
+     * @return null|string
+     */
+    public function hasPages()
+    {
+        return $this->nextPageUrl() || $this->previousPageUrl();
+    }
+
+    /**
+     * Determine if there are more items in the data source.
+     *
+     * @return null|string
+     */
+    public function hasMorePages()
+    {
+        return $this->nextPageUrl();
     }
 }
