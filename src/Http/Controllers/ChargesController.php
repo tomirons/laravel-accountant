@@ -16,10 +16,11 @@ class ChargesController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->factory->charge->all()
+        $charges = $this->factory->charge->all()
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 
+        return view('accountant::charges.index', compact('charges'));
     }
 
     /**
