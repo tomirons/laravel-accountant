@@ -38,7 +38,7 @@
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation" class="{{ request()->is('accountant') ? 'active' : null }}"><a href="{{ url('accountant') }}">Dashboard</a></li>
-                        <li role="presentation" class="{{ request()->is('accountant/charges', 'accountant/charges/*') ? 'active' : null }}"><a href="{{ url('accountant/charges') }}">Payments</a></li>
+                        <li role="presentation" class="{{ request()->is('accountant/charges', 'accountant/charges/*') ? 'active' : null }}"><a href="{{ url('accountant/charges') }}">Charges</a></li>
                         <li role="presentation" class="{{ request()->is('accountant/customers', 'accountant/customers/*') ? 'active' : null }}"><a href="{{ url('accountant/customers') }}">Customers</a></li>
                     </ul>
                 </div>
