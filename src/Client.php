@@ -33,9 +33,7 @@ abstract class Client
     }
 
     /**
-     * Call method on the stripe class if it doesn't exist. Since all clients will have subset of same functions
-     * we don't have to define the functions of the client. This function will directly call the function on the
-     * respective client.
+     * Call the corresponding method on the client, if we're calling the 'retrieve' method then pass through the object id.
      *
      * @param $method
      * @param null $args
@@ -43,7 +41,11 @@ abstract class Client
      */
     public function __call($method, $args = null)
     {
-        return call_user_func_array($this->getStripeClass()::$method, $args);
+        if ($method == 'retrieve') {
+            return $this->getStripeClass()::$method($args[0]);
+        }
+
+        return $this->getStripeClass()::$method($args);
     }
 
     /**
