@@ -4,6 +4,7 @@ namespace TomIrons\Accountant;
 
 use Stripe\Stripe;
 use Illuminate\Support\Collection;
+use TomIrons\Accountant\Exceptions\InvalidMethodException;
 
 abstract class Client
 {
@@ -53,7 +54,7 @@ abstract class Client
             return $this->getStripeClass()::$method(...$args);
         }
 
-        throw new \BadMethodCallException("Method \"{$method}\" is not in the list of allowed methods.");
+        throw new InvalidMethodException("Method $method is not in the list of allowed methods.");
     }
 
     /**
