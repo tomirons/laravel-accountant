@@ -2,12 +2,7 @@
 
 namespace TomIrons\Accountant\Clients;
 
-use Psy\Util\Str;
 use TomIrons\Accountant\Client;
-use Stripe\Charge as StripeCharge;
-use TomIrons\Accountant\Contracts\Client as ClientContract;
-use TomIrons\Accountant\Contracts\Deleteable;
-use TomIrons\Accountant\Contracts\Listable;
 
 class Charge extends Client
 {
@@ -17,11 +12,11 @@ class Charge extends Client
      * @var array
      */
     protected $methods = [
-        'all', 'retrieve'
+        'all', 'retrieve',
     ];
 
     /**
-     * Gets the name of the Stripe Client name
+     * Gets the name of the Stripe Client name.
      * @return string
      */
     public function getClientName(): string

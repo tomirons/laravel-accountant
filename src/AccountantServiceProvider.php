@@ -29,7 +29,6 @@ class AccountantServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/accountant.php', 'accountant'
         );
-
     }
 
     /**
