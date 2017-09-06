@@ -23,6 +23,13 @@ abstract class Client
     protected $currentPage;
 
     /**
+     * Available Stripe methods.
+     *
+     * @var array
+     */
+    protected $methods;
+
+    /**
      * Create a new Client instance.
      *
      * @return void
@@ -43,11 +50,14 @@ abstract class Client
      */
     public function __call($method, $args)
     {
-        return $this->getStripeClass()::$method(...$args);
+        if (in_array($method, $this->methods)) {
+            return $this->getStripeClass()::$method(...$args);
+        }
     }
 
     /**
      * Gets the name of the Stripe Client name
+     *
      * @return string
      */
     abstract public function getClientName(): string;
@@ -59,7 +69,7 @@ abstract class Client
      */
     public function getStripeClass()
     {
-        return app('Stripe\\' . ucfirst($this->getClientName()));
+        return app('Stripe\\' . studly_case($this->getClientName()));
     }
 
     /**
