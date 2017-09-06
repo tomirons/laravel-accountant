@@ -53,7 +53,7 @@ abstract class Client
             return $this->getStripeClass()::$method(...$args);
         }
 
-        throw new \BadMethodCallException("Method '{$method}' is not in the list of allowed methods.");
+        throw new \BadMethodCallException("Method \"{$method}\" is not in the list of allowed methods.");
     }
 
     /**
