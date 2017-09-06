@@ -11,6 +11,15 @@ use Stripe\Customer as StripeCustomer;
 class Customer extends Client
 {
     /**
+     * Available Stripe methods.
+     *
+     * @var array
+     */
+    protected $methods = [
+        'all', 'retrieve'
+    ];
+
+    /**
      * Gets the name of the Stripe Client name
      * @return string
      */
