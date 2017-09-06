@@ -49,7 +49,7 @@ abstract class Client
      */
     public function __call($method, $args)
     {
-        if (in_array($method, $this->methods)) {
+        if ($this->methods || in_array($method, $this->methods)) {
             return $this->getStripeClass()::$method(...$args);
         }
 
