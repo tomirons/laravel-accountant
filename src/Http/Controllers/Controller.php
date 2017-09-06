@@ -2,21 +2,21 @@
 
 namespace TomIrons\Accountant\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
 use TomIrons\Accountant\ClientFactory;
+use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
     /**
      * Instance of the client.
      *
-     * @var Object
+     * @var object
      */
     protected $factory;
 
     /**
      * Controller constructor.
-     * @param Object $factory
+     * @param object $factory
      */
     public function __construct(ClientFactory $factory)
     {

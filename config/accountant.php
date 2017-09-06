@@ -3,6 +3,6 @@
 return [
     /* Amount of results to show per page */
     'pagination' => [
-        'limit' => 15
-    ]
+        'limit' => 15,
+    ],
 ];

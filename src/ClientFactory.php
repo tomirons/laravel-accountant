@@ -31,9 +31,8 @@ class ClientFactory
      */
     public function __get($method)
     {
-        $class = __NAMESPACE__ . '\\Clients\\' . studly_case($method);
+        $class = __NAMESPACE__.'\\Clients\\'.studly_case($method);
 
         return $this->app->make($class);
     }
-
 }

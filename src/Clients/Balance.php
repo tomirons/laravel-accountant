@@ -2,7 +2,6 @@
 
 namespace TomIrons\Accountant\Clients;
 
-
 use TomIrons\Accountant\Client;
 
 class Balance extends Client
@@ -13,11 +12,11 @@ class Balance extends Client
      * @var array
      */
     protected $methods = [
-        'retrieve'
+        'retrieve',
     ];
 
     /**
-     * Gets the name of the Stripe Client name
+     * Gets the name of the Stripe Client name.
      * @return string
      */
     public function getClientName(): string
