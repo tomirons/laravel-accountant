@@ -39,9 +39,7 @@ abstract class Client
     }
 
     /**
-     * Call method on the stripe class if it doesn't exist. Since all clients will have subset of same functions
-     * we don't have to define the functions of the client. This function will directly call the function on the
-     * respective client.
+     * Call method on the stripe class if it doesn't exist.
      *
      * @param $method
      * @param null $args
