@@ -16,7 +16,7 @@ class Paginator extends BasePaginator
         $this->resetQuery();
 
         if ($this->currentPage() > 2) {
-            $this->addQuery('end', session()->get('accountant.api.end'));
+            $this->appends('end', session()->get('accountant.api.end'));
         }
 
         return parent::previousPageUrl();
@@ -32,7 +32,7 @@ class Paginator extends BasePaginator
         $this->resetQuery();
 
         if ($this->items->count() == $this->perPage()) {
-            $this->addQuery('start', session()->get('accountant.api.start'));
+            $this->appends('start', session()->get('accountant.api.start'));
 
             return $this->url($this->currentPage() + 1);
         }
