@@ -18,10 +18,3 @@ span.not-available {
   font-style: italic;
   color: #a5a5a5;
 }
-
-.panel.refunds:not(:last-of-type) {
-  margin-bottom: 0;
-  border-bottom: none;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
