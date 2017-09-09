@@ -86,32 +86,34 @@
             </div>
             @if($charge->refunds->total_count)
                 <h5>Refunds</h5>
-                @foreach($charge->refunds->data as $refund)
-                    <div class="panel panel-default refunds">
-                        <div class="panel-body">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <span class="attribute-label">ID:</span> {{ $refund->id }}
-                                    </li>
-                                    <li>
-                                        <span class="attribute-label">Amount:</span> ${{ format_amount($refund->amount) }} <span class="text-uppercase">{{ $refund->currency }}</span>
-                                    </li>
-                                </ul>
+                <ul class="list-group">
+                    @foreach($charge->refunds->data as $refund)
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <span class="attribute-label">ID:</span> {{ $refund->id }}
+                                        </li>
+                                        <li>
+                                            <span class="attribute-label">Amount:</span> ${{ format_amount($refund->amount) }} <span class="text-uppercase">{{ $refund->currency }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <span class="attribute-label">Reason:</span> {{ $refund->reason ? ucfirst(str_replace('_', ' ', $refund->reason)) : 'Other' }}
+                                        </li>
+                                        <li>
+                                            <span class="attribute-label">Date:</span> {{ Carbon\Carbon::createFromTimestamp($refund->created)->format('Y/m/d h:i:s') }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <span class="attribute-label">Reason:</span> {{ $refund->reason ? ucfirst(str_replace('_', ' ', $refund->reason)) : 'Other' }}
-                                    </li>
-                                    <li>
-                                        <span class="attribute-label">Date:</span> {{ Carbon\Carbon::createFromTimestamp($refund->created)->format('Y/m/d h:i:s') }}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                        </li>
+                    @endforeach
+                </ul>
             @endif
         </div>
     </div>
