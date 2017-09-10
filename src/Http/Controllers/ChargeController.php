@@ -5,7 +5,7 @@ namespace TomIrons\Accountant\Http\Controllers;
 use Illuminate\Http\Request;
 use TomIrons\Accountant\Clients\Charge;
 
-class ChargesController extends Controller
+class ChargeController extends Controller
 {
     /**
      * Return all charges.

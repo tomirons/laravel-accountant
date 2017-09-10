@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/balance', 'BalanceController@index');
 
 // Charge routes...
-Route::get('/charges', 'ChargesController@index');
-Route::get('/charges/{id}', 'ChargesController@show');
+Route::get('/charges', 'ChargeController@index');
+Route::get('/charges/{id}', 'ChargeController@show');
 
 Route::get('/', 'HomeController@index');
 Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
