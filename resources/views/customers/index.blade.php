@@ -17,7 +17,7 @@
                         $card = collect($customer->sources->data)->first();
                     @endphp
                     <tr class="clickable" data-href="{{ url('accountant/customers', $customer->id) }}">
-                        <td><span class="text-primary">{{ $customer->email }}</span> - {{ $customer->id }}</td>
+                        <td><span class="text-primary">{{ $customer->email }}</span> <span class="text-muted">- {{ $customer->id }}</span></td>
                         <td>{{ $card->brand }} - {{ $card->last4 }} - {{ $card->exp_month }}/{{ $card->exp_year }}</td>
                         <td>{{ Carbon\Carbon::createFromTimestamp($customer->created)->format('Y/m/d h:i:s') }}</td>
                     </tr>
