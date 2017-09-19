@@ -21,6 +21,10 @@
                             <li>
                                 <span class="attribute-label">Created:</span> {{ Carbon\Carbon::createFromTimestamp($customer->created)->format('Y/m/d h:i:s') }}
                             </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="list-unstyled">
                             <li>
                                 <span class="attribute-label">Email:</span> {{ $customer->email }}
                             </li>
