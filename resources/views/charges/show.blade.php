@@ -41,7 +41,7 @@
                                 <span class="attribute-label">Date:</span> {{ Carbon\Carbon::createFromTimestamp($balance->created)->format('Y/m/d h:i:s') }}
                             </li>
                             <li>
-                                <span class="attribute-label">Description:</span> {!! $charge->description ?? '<span class="not-available">Not Available</em>' !!}
+                                <span class="attribute-label">Description:</span> {!! $charge->description ?? '<span class="not-available">Not available</em>' !!}
                             </li>
                         </ul>
                     </div>
@@ -56,7 +56,7 @@
                                 <span class="attribute-label">ID:</span> {{ $charge->source->id }}
                             </li>
                             <li>
-                                <span class="attribute-label">Name:</span> {!! $charge->source->name ?? '<span class="not-available">Not Available</em>' !!}
+                                <span class="attribute-label">Name:</span> {!! $charge->source->name ?? '<span class="not-available">Not available</em>' !!}
                             </li>
                             <li>
                                 <span class="attribute-label">Number:</span> ************{{ $charge->source->last4 }}
