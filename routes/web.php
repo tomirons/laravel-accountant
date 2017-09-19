@@ -13,5 +13,9 @@ Route::get('/charges/{id}', 'ChargeController@show');
 Route::get('/customers', 'CustomerController@index');
 Route::get('/customers/{id}', 'CustomerController@show');
 
+// Subscription routes...
+Route::get('/subscriptions', 'SubscriptionController@index');
+Route::get('/subscriptions/{id}', 'SubscriptionController@show');
+
 Route::get('/', 'HomeController@index');
 Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
