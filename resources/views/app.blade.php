@@ -40,6 +40,7 @@
                         <li role="presentation" class="{{ request()->is('accountant') ? 'active' : null }}"><a href="{{ url('accountant') }}">Dashboard</a></li>
                         <li role="presentation" class="{{ request()->is('accountant/charges', 'accountant/charges/*') ? 'active' : null }}"><a href="{{ url('accountant/charges') }}">Charges</a></li>
                         <li role="presentation" class="{{ request()->is('accountant/customers', 'accountant/customers/*') ? 'active' : null }}"><a href="{{ url('accountant/customers') }}">Customers</a></li>
+                        <li role="presentation" class="{{ request()->is('accountant/subscriptions', 'accountant/subscriptions/*') ? 'active' : null }}"><a href="{{ url('accountant/subscriptions') }}">Subscriptions</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9">
