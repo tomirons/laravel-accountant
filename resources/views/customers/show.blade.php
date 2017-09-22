@@ -1,10 +1,6 @@
 @extends('accountant::app')
 
 @section('content')
-    @php
-        $cards = collect($customer->sources->data);
-        $subscriptions = collect($customer->subscriptions->data);
-    @endphp
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>{{ $customer->email }} <small class="text-muted"> - {{ $customer->id }}</small></h4>

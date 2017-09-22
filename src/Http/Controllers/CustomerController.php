@@ -30,7 +30,9 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = $this->factory->customer->retrieve($id);
+        $cards = collect($customer->sources->data);
+        $subscriptions = collect($customer->subscriptions->data);
 
-        return view('accountant::customers.show', compact('customer'));
+        return view('accountant::customers.show', compact('cards', 'customer', 'subscriptions'));
     }
 }
