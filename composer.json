@@ -19,9 +19,6 @@
     "phpunit/phpunit": "^6.3"
   },
   "autoload": {
-    "files": [
-      "src/helpers.php"
-    ],
     "psr-4": {
       "TomIrons\\Accountant\\": "src/"
     }
@@ -38,7 +35,10 @@
     "laravel": {
       "providers": [
         "TomIrons\\Accountant\\AccountantServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Accountant": "TomIrons\\Accountant\\Facades\\Accountant"
+      }
     }
   },
   "minimum-stability": "dev",
