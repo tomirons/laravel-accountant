@@ -98,7 +98,7 @@ abstract class Client
     {
         return $this->getStripeClass()::all([
             $name => $id
-        ]);
+        ])->data;
     }
 
     /**
