@@ -88,6 +88,20 @@ abstract class Client
     }
 
     /**
+     * Get a list of objects by the name and associated id.
+     *
+     * @param string $name
+     * @param string $id
+     * @return mixed
+     */
+    public function objects($name, $id)
+    {
+        return $this->getStripeClass()::all([
+            $name => $id
+        ]);
+    }
+
+    /**
      * Paginate the results.
      *
      * @param string $path
