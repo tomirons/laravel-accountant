@@ -12,7 +12,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @Foreach($customers as $customer)
+                @foreach ($customers as $customer)
                     @php
                         $card = collect($customer->sources->data)->first();
                     @endphp

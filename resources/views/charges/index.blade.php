@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @Foreach($charges as $charge)
+                    @foreach ($charges as $charge)
                         <tr class="clickable" data-href="{{ url('accountant/charges', $charge->id) }}">
                             <th scope="row">
                                 @if ($charge->refunded)

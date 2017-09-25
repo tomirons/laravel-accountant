@@ -87,7 +87,7 @@
             @if ($charge->refunds->total_count)
                 <h5>Refunds</h5>
                 <ul class="list-group">
-                    @foreach($charge->refunds->data as $refund)
+                    @foreach ($charge->refunds->data as $refund)
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-sm-6">
