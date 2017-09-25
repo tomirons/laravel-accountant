@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            @if($cards->count())
+            @if ($cards->count())
                 <h5>Cards</h5>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     @foreach($cards as $card)
@@ -90,14 +90,14 @@
                     @endforeach
                 </div>
             @endif
-            @if($subscriptions->count())
+            @if ($subscriptions->count())
                 <h5>Active Subscriptions</h5>
                 <div class="list-group">
                     @foreach($subscriptions as $subscription)
                         <a href="{{ url('accountant/subscriptions', $subscription->id) }}" class="list-group-item">
                             <span class="text-primary">{{ $subscription->plan->name }} (${{ format_amount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . str_plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})</span>
                             <span class="pull-right">
-                                @if($subscription->canceled_at)
+                                @if ($subscription->canceled_at)
                                     Cancels {{ Carbon\Carbon::createFromTimestamp($subscription->canceled_at)->format('Y/m/d') }}
                                 @endif
                             </span>

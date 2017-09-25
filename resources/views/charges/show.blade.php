@@ -4,9 +4,9 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>${{ format_amount($charge->amount) }} <small class="text-uppercase">{{ $charge->currency }}</small>
-                @if($charge->refunded)
+                @if ($charge->refunded)
                     <div class="label label-default pull-right">Refunded</div>
-                @elseif(!$charge->paid)
+                @elseif (!$charge->paid)
                     <div class="label label-danger pull-right">Failed</div>
                 @else
                     <div class="label label-success pull-right">Paid</div>
@@ -25,7 +25,7 @@
                             <li>
                                 <span class="attribute-label">Amount:</span> ${{ format_amount($balance->amount) }} <span class="text-uppercase">{{ $balance->currency }}</span>
                             </li>
-                            @if($charge->refunded)
+                            @if ($charge->refunded)
                                 <li>
                                     <span class="attribute-label">Amount Refunded:</span> ${{ format_amount($charge->amount_refunded) }} <span class="text-uppercase">{{ $balance->currency }}</span>
                                 </li>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-            @if($charge->refunds->total_count)
+            @if ($charge->refunds->total_count)
                 <h5>Refunds</h5>
                 <ul class="list-group">
                     @foreach($charge->refunds->data as $refund)

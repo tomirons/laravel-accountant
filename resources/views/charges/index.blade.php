@@ -16,9 +16,9 @@
                     @Foreach($charges as $charge)
                         <tr class="clickable" data-href="{{ url('accountant/charges', $charge->id) }}">
                             <th scope="row">
-                                @if($charge->refunded)
+                                @if ($charge->refunded)
                                     <span class="label label-default">Refunded</span>
-                                @elseif(!$charge->paid)
+                                @elseif (!$charge->paid)
                                     <span class="label label-danger">Failed</span>
                                 @else
                                     <span class="label label-success">Paid</span>
