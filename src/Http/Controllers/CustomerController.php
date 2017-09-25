@@ -37,6 +37,6 @@ class CustomerController extends Controller
         $customer->cards = collect($customer->sources->data);
         $customer->subscriptions = collect($customer->subscriptions->data);
 
-        return view('accountant::customers.show', compact('cards', 'customer', 'subscriptions'));
+        return view('accountant::customers.show', compact('customer'));
     }
 }
