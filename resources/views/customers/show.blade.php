@@ -31,10 +31,10 @@
                     </div>
                 </div>
             </div>
-            @if ($cards->count())
+            @if ($customer->cards->count())
                 <h5>Cards</h5>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @foreach ($cards as $card)
+                    @foreach ($customer->cards as $card)
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
@@ -90,10 +90,10 @@
                     @endforeach
                 </div>
             @endif
-            @if ($subscriptions->count())
+            @if ($customer->subscriptions->count())
                 <h5>Active Subscriptions</h5>
                 <div class="list-group">
-                    @foreach ($subscriptions as $subscription)
+                    @foreach ($customer->subscriptions as $subscription)
                         <a href="{{ url('accountant/subscriptions', $subscription->id) }}" class="list-group-item">
                             <span class="text-primary">{{ $subscription->plan->name }} (${{ Accountant::formatAmount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . str_plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})</span>
                             <span class="pull-right">
