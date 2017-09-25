@@ -3,7 +3,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>${{ format_amount($charge->amount) }} <small class="text-uppercase">{{ $charge->currency }}</small>
+            <h4>${{ Accountant::formatAmount($charge->amount) }} <small class="text-uppercase">{{ $charge->currency }}</small>
                 @if ($charge->refunded)
                     <div class="label label-default pull-right">Refunded</div>
                 @elseif (!$charge->paid)
@@ -23,22 +23,22 @@
                                 <span class="attribute-label">ID:</span> {{ $balance->source }}
                             </li>
                             <li>
-                                <span class="attribute-label">Amount:</span> ${{ format_amount($balance->amount) }} <span class="text-uppercase">{{ $balance->currency }}</span>
+                                <span class="attribute-label">Amount:</span> ${{ Accountant::formatAmount($balance->amount) }} <span class="text-uppercase">{{ $balance->currency }}</span>
                             </li>
                             @if ($charge->refunded)
                                 <li>
-                                    <span class="attribute-label">Amount Refunded:</span> ${{ format_amount($charge->amount_refunded) }} <span class="text-uppercase">{{ $balance->currency }}</span>
+                                    <span class="attribute-label">Amount Refunded:</span> ${{ Accountant::formatAmount($charge->amount_refunded) }} <span class="text-uppercase">{{ $balance->currency }}</span>
                                 </li>
                             @endif
                             <li>
-                                <span class="attribute-label">Fee:</span> ${{ $charge->refunded ? '0.00' : format_amount($balance->fee) }}
+                                <span class="attribute-label">Fee:</span> ${{ $charge->refunded ? '0.00' : Accountant::formatAmount($balance->fee) }}
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <ul class="list-unstyled">
                             <li>
-                                <span class="attribute-label">Date:</span> {{ Carbon\Carbon::createFromTimestamp($balance->created)->format('Y/m/d h:i:s') }}
+                                <span class="attribute-label">Date:</span> {{ Accountant::formatDate($balance->created) }}
                             </li>
                             <li>
                                 <span class="attribute-label">Description:</span> {!! $charge->description ?? '<span class="not-available">Not available</em>' !!}
@@ -96,7 +96,7 @@
                                             <span class="attribute-label">ID:</span> {{ $refund->id }}
                                         </li>
                                         <li>
-                                            <span class="attribute-label">Amount:</span> ${{ format_amount($refund->amount) }} <span class="text-uppercase">{{ $refund->currency }}</span>
+                                            <span class="attribute-label">Amount:</span> ${{ Accountant::formatAmount($refund->amount) }} <span class="text-uppercase">{{ $refund->currency }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -106,7 +106,7 @@
                                             <span class="attribute-label">Reason:</span> {{ $refund->reason ? ucfirst(str_replace('_', ' ', $refund->reason)) : 'Other' }}
                                         </li>
                                         <li>
-                                            <span class="attribute-label">Date:</span> {{ Carbon\Carbon::createFromTimestamp($refund->created)->format('Y/m/d h:i:s') }}
+                                            <span class="attribute-label">Date:</span> {{ Accountant::formatDate($refund->created) }}
                                         </li>
                                     </ul>
                                 </div>

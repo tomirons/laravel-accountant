@@ -24,9 +24,9 @@
                                     <span class="label label-success">Paid</span>
                                 @endif
                             </th>
-                            <td>${{ format_amount($charge->amount) }}</td>
+                            <td>${{ Accountant::formatAmount($charge->amount) }}</td>
                             <td>{{ $charge->id }}</td>
-                            <td>{{ Carbon\Carbon::createFromTimestamp($charge->created)->format('Y/m/d h:i:s') }}</td>
+                            <td>{{ Accountant::formatDate($charge->created) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
