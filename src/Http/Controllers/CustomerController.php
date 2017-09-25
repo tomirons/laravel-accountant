@@ -34,9 +34,6 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = $this->factory->customer->retrieve($id);
-        dump($this->factory->subscription->all([
-            'customer' => $customer->id
-        ]));
         $cards = collect($customer->sources->data);
         $subscriptions = collect($customer->subscriptions->data);
 
