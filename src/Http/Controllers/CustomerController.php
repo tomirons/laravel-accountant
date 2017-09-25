@@ -18,6 +18,10 @@ class CustomerController extends Controller
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 
+        foreach ($customers as $customer) {
+            $customer->card = collect($customer->sources->data)->first();
+        }
+
         return view('accountant::customers.index', compact('customers'));
     }
 
@@ -30,6 +34,9 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = $this->factory->customer->retrieve($id);
+        dump($this->factory->subscription->all([
+            'customer' => $customer->id
+        ]));
         $cards = collect($customer->sources->data);
         $subscriptions = collect($customer->subscriptions->data);
 

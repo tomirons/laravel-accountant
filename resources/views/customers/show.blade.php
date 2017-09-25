@@ -15,7 +15,7 @@
                                 <span class="attribute-label">ID:</span> {{ $customer->id }}
                             </li>
                             <li>
-                                <span class="attribute-label">Created:</span> {{ Carbon\Carbon::createFromTimestamp($customer->created)->format('Y/m/d h:i:s') }}
+                                <span class="attribute-label">Created:</span> {{ Accountant::formatDate($customer->created) }}
                             </li>
                         </ul>
                     </div>
@@ -95,10 +95,10 @@
                 <div class="list-group">
                     @foreach ($subscriptions as $subscription)
                         <a href="{{ url('accountant/subscriptions', $subscription->id) }}" class="list-group-item">
-                            <span class="text-primary">{{ $subscription->plan->name }} (${{ format_amount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . str_plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})</span>
+                            <span class="text-primary">{{ $subscription->plan->name }} (${{ Accountant::formatAmount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . str_plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})</span>
                             <span class="pull-right">
                                 @if ($subscription->canceled_at)
-                                    Cancels {{ Carbon\Carbon::createFromTimestamp($subscription->canceled_at)->format('Y/m/d') }}
+                                    Cancels {{ Accountant::formatDate($subscription->canceled_at, 'Y/m/d') }}
                                 @endif
                             </span>
                         </a>
