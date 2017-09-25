@@ -20,25 +20,25 @@
                     <div class="col-sm-6">
                         <ul class="list-unstyled">
                             <li>
-                                <span class="attribute-label">ID:</span> {{ $balance->source }}
+                                <span class="attribute-label">ID:</span> {{ $charge->balance->source }}
                             </li>
                             <li>
-                                <span class="attribute-label">Amount:</span> ${{ Accountant::formatAmount($balance->amount) }} <span class="text-uppercase">{{ $balance->currency }}</span>
+                                <span class="attribute-label">Amount:</span> ${{ Accountant::formatAmount($charge->balance->amount) }} <span class="text-uppercase">{{ $charge->balance->currency }}</span>
                             </li>
                             @if ($charge->refunded)
                                 <li>
-                                    <span class="attribute-label">Amount Refunded:</span> ${{ Accountant::formatAmount($charge->amount_refunded) }} <span class="text-uppercase">{{ $balance->currency }}</span>
+                                    <span class="attribute-label">Amount Refunded:</span> ${{ Accountant::formatAmount($charge->amount_refunded) }} <span class="text-uppercase">{{ $charge->balance->currency }}</span>
                                 </li>
                             @endif
                             <li>
-                                <span class="attribute-label">Fee:</span> ${{ $charge->refunded ? '0.00' : Accountant::formatAmount($balance->fee) }}
+                                <span class="attribute-label">Fee:</span> ${{ $charge->refunded ? '0.00' : Accountant::formatAmount($charge->balance->fee) }}
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <ul class="list-unstyled">
                             <li>
-                                <span class="attribute-label">Date:</span> {{ Accountant::formatDate($balance->created) }}
+                                <span class="attribute-label">Date:</span> {{ Accountant::formatDate($charge->balance->created) }}
                             </li>
                             <li>
                                 <span class="attribute-label">Description:</span> {!! $charge->description ?? '<span class="not-available">Not available</em>' !!}
