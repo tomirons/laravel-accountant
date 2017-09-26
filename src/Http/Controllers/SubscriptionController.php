@@ -18,7 +18,6 @@ class SubscriptionController extends Controller
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 
-        // Retireve the customer for each subscription
         foreach ($subscriptions as $subscription) {
             $subscription->customer = $this->factory->customer->retrieve($subscription->customer);
         }
@@ -35,6 +34,8 @@ class SubscriptionController extends Controller
     public function show($id)
     {
         $subscription = $this->factory->subscription->retrieve($id);
+        $subscription->customer = $this->factory->customer->retrieve($subscription->customer);
+        $subscription->invoices = collect($this->factory->invoice->objects('subscription', $id));
 
         return view('accountant::subscriptions.show', compact('subscription'));
     }
