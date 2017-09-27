@@ -18,3 +18,7 @@ span.not-available {
   font-style: italic;
   color: #a5a5a5;
 }
+
+.invoices.list-group > .list-group-item > span:not(:first-of-type) {
+  margin-left: 15px;
+}
