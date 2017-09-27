@@ -2,6 +2,7 @@
 
 namespace TomIrons\Accountant;
 
+use BadMethodCallException;
 use Stripe\Stripe;
 use Illuminate\Support\Collection;
 
@@ -51,7 +52,7 @@ abstract class Client
             return $this->getStripeClass()::$method(...$args);
         }
 
-        throw new \BadMethodCallException("Method [{$method}] doesn't exist or is not in the list of allowed methods.");
+        throw new BadMethodCallException("Method [{$method}] doesn't exist or is not in the list of allowed methods.");
     }
 
     /**
