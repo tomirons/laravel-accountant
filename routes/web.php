@@ -17,5 +17,10 @@ Route::get('/customers/{id}', 'CustomerController@show');
 Route::get('/subscriptions', 'SubscriptionController@index');
 Route::get('/subscriptions/{id}', 'SubscriptionController@show');
 
+// Invoice routes...
+Route::get('/invoices', 'InvoiceController@index');
+Route::get('/invoices/{id}', 'InvoiceController@show');
+Route::get('/invoices/{object}/{id}', 'InvoiceController@list');
+
 Route::get('/', 'HomeController@index');
 Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
