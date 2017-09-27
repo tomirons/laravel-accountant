@@ -16,7 +16,7 @@
                 @foreach ($subscriptions as $subscription)
                     <tr class="clickable" data-href="{{ url('accountant/subscriptions', $subscription->id) }}">
                         <td><span class="text-primary">{{ $subscription->customer->email }}</span></td>
-                        <td><span class="label label-primary">{{ $subscription->billing == 'charge_automatically' ? 'Auto' : 'Send' }}</span></td>
+                        <th><span class="label label-primary">{{ $subscription->billing == 'charge_automatically' ? 'Auto' : 'Send' }}</span></th>
                         <td>{{ $subscription->plan->name }}</td>
                         <td>{{ Carbon\Carbon::createFromTimestamp($subscription->created)->format('Y/m/d h:i:s') }}</td>
                     </tr>
