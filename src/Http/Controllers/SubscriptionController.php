@@ -35,7 +35,7 @@ class SubscriptionController extends Controller
     {
         $subscription = $this->factory->subscription->retrieve($id);
         $subscription->customer = $this->factory->customer->retrieve($subscription->customer);
-        $subscription->invoices = collect($this->factory->invoice->objects('subscription', $id));
+        $subscription->invoices = $this->factory->subscription->invoices($id);
 
         return view('accountant::subscriptions.show', compact('subscription'));
     }
