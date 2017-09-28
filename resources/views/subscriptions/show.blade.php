@@ -68,7 +68,7 @@
                                 <span class="label label-default">Unpaid</span>
                             @endif
                             <span>{{ $invoice->customer }}</span>
-                            <span class="hidden-xs hidden-sm">{{ $invoice->number }}</span>
+                            <span class="hidden-xs hidden-sm">{{ $invoice->number ? $invoice->number : $invoice->id }}</span>
                             <span class="pull-right hidden-xs hidden-sm">{{ Accountant::formatDate($invoice->date) }}</span>
                         </a>
                     @endforeach
