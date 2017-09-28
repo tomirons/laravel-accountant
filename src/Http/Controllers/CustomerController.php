@@ -3,6 +3,7 @@
 namespace TomIrons\Accountant\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class CustomerController extends Controller
 {
@@ -19,7 +20,7 @@ class CustomerController extends Controller
             ->paginate($request->url(), $request->query());
 
         foreach ($customers as $customer) {
-            $customer->card = collect($customer->sources->data)->first();
+            $customer->card = (new Collection($customer->sources->data))->first();
         }
 
         return view('accountant::customers.index', compact('customers'));
@@ -34,9 +35,9 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = $this->factory->customer->retrieve($id);
-        $customer->cards = collect($customer->sources->data);
-        $customer->subscriptions = collect($customer->subscriptions->data);
-        $customer->invoices = collect($customer->invoices()->data);
+        $customer->cards = new Collection($customer->sources->data);
+        $customer->subscriptions = new Collection($customer->subscriptions->data);
+        $customer->invoices = new Collection($customer->invoices()->data);
 
         return view('accountant::customers.show', compact('customer'));
     }
