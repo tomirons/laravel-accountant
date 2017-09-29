@@ -75,15 +75,16 @@ abstract class Client
     /**
      * Set the class for the pagination.
      *
+     * @param array $params
      * @return $this
      */
-    public function all()
+    public function all(array $params = [])
     {
-        $this->class = $this->getStripeClass()::all([
+        $this->class = $this->getStripeClass()::all(array_merge($params, [
             'limit' => $this->limit(),
             'ending_before' => $this->end(),
             'starting_after' => $this->start(),
-        ]);
+        ]));
 
         return $this;
     }
