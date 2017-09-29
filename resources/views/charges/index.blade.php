@@ -25,7 +25,7 @@
                                 @endif
                             </th>
                             <td>${{ Accountant::formatAmount($charge->amount) }}</td>
-                            <td>{{ $charge->id }}</td>
+                            <td>{{ $charge->description ? "{$charge->description} - " : null }}{{ $charge->id }}</td>
                             <td>{{ Accountant::formatDate($charge->created) }}</td>
                         </tr>
                     @endforeach
