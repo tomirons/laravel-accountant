@@ -10,11 +10,15 @@ class ChargeController extends Controller
     /**
      * Return all charges.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @param null $type
+     * @param null $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request, $type = null, $id = null)
     {
-        $charges = $this->factory->charge->all()
+        $parameters = $type && $id ? [$type => $id] : [];
+        $charges = $this->factory->charge->all($parameters)
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 
