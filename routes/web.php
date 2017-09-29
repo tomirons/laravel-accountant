@@ -8,6 +8,7 @@ Route::get('/balance', 'BalanceController@index');
 // Charge routes...
 Route::get('/charges', 'ChargeController@index');
 Route::get('/charges/{id}', 'ChargeController@show');
+Route::get('/charges/{type?}/{id?}', 'ChargeController@index');
 
 // Customer routes...
 Route::get('/customers', 'CustomerController@index');
@@ -20,7 +21,7 @@ Route::get('/subscriptions/{id}', 'SubscriptionController@show');
 // Invoice routes...
 Route::get('/invoices', 'InvoiceController@index');
 Route::get('/invoices/{id}', 'InvoiceController@show');
-Route::get('/invoices/{type}/{id}', 'InvoiceController@list');
+Route::get('/invoices/{type?}/{id?}', 'InvoiceController@index');
 
 Route::get('/', 'HomeController@index');
 Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
