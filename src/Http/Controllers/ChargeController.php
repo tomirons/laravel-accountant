@@ -29,7 +29,7 @@ class ChargeController extends Controller
      * Show information about a charge.
      *
      * @param Request $request
-     * @return \Stripe\Charge
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
