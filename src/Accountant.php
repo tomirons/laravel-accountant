@@ -11,7 +11,7 @@ class Accountant
      * @param int $decimals
      * @return string
      */
-    public static function formatAmount(int $number, int $decimals = 2)
+    public function formatAmount(int $number, int $decimals = 2)
     {
         return number_format($number / 100, $decimals);
     }
@@ -23,8 +23,21 @@ class Accountant
      * @param string $format
      * @return string
      */
-    public static function formatDate(int $timestamp, string $format = 'Y/m/d h:i:s')
+    public function formatDate(int $timestamp, string $format = 'Y/m/d h:i:s')
     {
         return \Carbon\Carbon::createFromTimestamp($timestamp)->format($format);
+    }
+
+    /**
+     * Format the plan name and interval into a readable string.
+     *
+     * @param $plan
+     * @return string
+     */
+    public function planToReadable($plan)
+    {
+        $interval = $plan->interval_count > 1 ? ' every ' . $plan->interval_count . ' ' . str_plural($plan->interval) : '/' . $plan->interval;
+
+        return "{$plan->name} (\${$this->formatAmount($plan->amount)}{$interval})";
     }
 }
