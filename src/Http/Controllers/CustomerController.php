@@ -35,7 +35,9 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = $this->factory->customer->retrieve($id);
-        $customer->cards = new Collection($customer->sources->data);
+        $customer->cards = new Collection($customer->sources->all([
+            'object' => 'card'
+        ])->data);
         $customer->subscriptions = new Collection($customer->subscriptions->data);
         $customer->invoices = new Collection($customer->invoices()->data);
 
