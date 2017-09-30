@@ -64,13 +64,13 @@
                                     Awaiting payment.
                                 @endif
                             </li>
-                            @if ($invoice->paid)
+                            @if ($invoice->charge && $invoice->paid)
                                 <li>
                                     <span class="attribute-label">Payment:</span> <a href="{{ url('accountant/charges', $invoice->charge) }}">{{ $invoice->charge }}</a>
                                 </li>
                             @endif
                         </ul>
-                        @if ($invoice->paid)
+                        @if ($invoice->total > 0 && $invoice->paid)
                             <a href="{{ url('accountant/charges', ['invoice', $invoice->id]) }}" class="text-center">View all attempts <i class="fa fa-arrow-right"></i></a>
                         @endif
                     </div>
