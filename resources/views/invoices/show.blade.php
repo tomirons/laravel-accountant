@@ -59,7 +59,7 @@
                             <li>
                                 <span class="attribute-label">Status:</span>
                                 @if ($invoice->paid)
-                                    Paid <i class="fa fa-check text-primary"></i>
+                                    Paid
                                 @else
                                     Awaiting payment.
                                 @endif
@@ -70,10 +70,12 @@
                                 </li>
                             @endif
                         </ul>
-                        @if ($invoice->total > 0 && $invoice->paid)
-                            <a href="{{ url('accountant/charges', ['invoice', $invoice->id]) }}" class="text-center">View all attempts <i class="fa fa-arrow-right"></i></a>
-                        @endif
                     </div>
+                    @if ($invoice->total > 0 && $invoice->paid)
+                            <div class="col-sm-12">
+                                <a href="{{ url('accountant/charges', ['invoice', $invoice->id]) }}" class="btn btn-primary btn-xs view-all">View all attempts <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                    @endif
                 </div>
             </div>
             <h5>Items</h5>
