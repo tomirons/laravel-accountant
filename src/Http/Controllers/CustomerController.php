@@ -15,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $customers = $this->factory->customer->all()
+        $customers = $this->factory->customer->list()
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 

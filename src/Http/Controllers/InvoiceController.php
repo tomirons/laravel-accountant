@@ -18,7 +18,7 @@ class InvoiceController extends Controller
     public function index(Request $request, $type = null, $id = null)
     {
         $parameters = $type && $id ? [$type => $id] : [];
-        $invoices = $this->factory->invoice->all($parameters)
+        $invoices = $this->factory->invoice->list($parameters)
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 

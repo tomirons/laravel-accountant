@@ -18,7 +18,7 @@ class ChargeController extends Controller
     public function index(Request $request, $type = null, $id = null)
     {
         $parameters = $type && $id ? [$type => $id] : [];
-        $charges = $this->factory->charge->all($parameters)
+        $charges = $this->factory->charge->list($parameters)
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 

@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
      */
     public function index(Request $request)
     {
-        $subscriptions = $this->factory->subscription->all()
+        $subscriptions = $this->factory->subscription->list()
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 
