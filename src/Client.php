@@ -13,7 +13,7 @@ abstract class Client
      *
      * @var object
      */
-    protected $class;
+    protected $data;
 
     /**
      * Current page/.
@@ -73,14 +73,14 @@ abstract class Client
     }
 
     /**
-     * Set the class for the pagination.
+     * Set the data for the pagination.
      *
      * @param array $params
      * @return $this
      */
-    public function all(array $params = [])
+    public function list(array $params = [])
     {
-        $this->class = $this->getStripeClass()::all(array_merge($params, [
+        $this->data = $this->getStripeClass()::all(array_merge($params, [
             'limit' => $this->limit(),
             'ending_before' => $this->end(),
             'starting_after' => $this->start(),
@@ -98,11 +98,11 @@ abstract class Client
      */
     public function paginate($path, $query): Paginator
     {
-        if ($this->class->object !== 'list' || ! is_array($this->class->data)) {
+        if ($this->data->object !== 'list' || ! is_array($this->data->data)) {
             throw new LogicException("Object must be a 'list' in order to paginate.");
         }
 
-        $collection = new Collection($this->class->data);
+        $collection = new Collection($this->data->data);
 
         $this->points($collection->first()->id, $collection->last()->id);
 
