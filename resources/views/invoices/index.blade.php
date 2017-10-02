@@ -34,7 +34,7 @@
                 </tbody>
             </table>
             <div class="text-center">
-                {{ $invoices->links() }}
+                {{ $invoices->links('accountant::partials.pagination') }}
             </div>
         </div>
     </div>

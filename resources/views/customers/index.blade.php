@@ -22,7 +22,7 @@
                 </tbody>
             </table>
             <div class="text-center">
-                {{ $customers->links() }}
+                {{ $customers->links('accountant::partials.pagination') }}
             </div>
         </div>
     </div>

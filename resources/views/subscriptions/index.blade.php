@@ -24,7 +24,7 @@
                 </tbody>
             </table>
             <div class="text-center">
-                {{ $subscriptions->links() }}
+                {{ $subscriptions->links('accountant::partials.pagination') }}
             </div>
         </div>
     </div>
