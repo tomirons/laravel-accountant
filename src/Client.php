@@ -110,7 +110,11 @@ abstract class Client
             $collection,
             $this->limit(),
             $this->currentPage(),
-            compact('path', 'query')
+            compact('path', 'query') + [
+                'morePages' => $this->getStripeClass()->all([
+                    'starting_after' => $collection->last()->id
+                ])->has_more
+            ]
         );
     }
 

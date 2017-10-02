@@ -63,6 +63,6 @@ class Paginator extends BasePaginator
      */
     public function hasMorePages()
     {
-        return $this->nextPageUrl();
+        return $this->morePages;
     }
 }
