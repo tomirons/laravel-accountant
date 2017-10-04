@@ -10,6 +10,9 @@
   ],
   "require": {
     "php": ">=7.1.0",
+    "illuminate/auth": "5.5.*",
+    "illuminate/cache": "5.5.*",
+    "illuminate/config": "5.5.*",
     "illuminate/support": "5.5.*",
     "illuminate/pagination": "5.5.*",
     "stripe/stripe-php": "^5.1"
