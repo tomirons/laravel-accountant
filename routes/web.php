@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => config('accountant.middleware')], function () {
+Route::group(['middleware' => config('accountant.middleware', 'auth')], function () {
     // Balance routes...
     Route::get('/balance', 'BalanceController@index');
 
