@@ -5,6 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title>Accountant</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/accountant') }}">
@@ -42,7 +45,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right hidden-xs">
-                        <li class="pull-right">
+                        <li>
                             <a href="https://github.com/tomirons/laravel-accountant" target="_blank"><i class="fa fa-github"></i></a>
                         </li>
                     </ul>
