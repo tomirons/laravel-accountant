@@ -160,8 +160,10 @@ abstract class Client
             return session()->get('accountant.api.'.$start);
         }
 
-        session()->put('accountant.api.start', $end);
-        session()->put('accountant.api.end', $start);
+        session()->put([
+            'accountant.api.start' => $end,
+            'accountant.api.end' => $start
+        ]);
     }
 
     /**
