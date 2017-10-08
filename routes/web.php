@@ -25,6 +25,7 @@ Route::group(['middleware' => config('accountant.middleware', 'auth')], function
     Route::get('/invoices/{type?}/{id?}', 'InvoiceController@index');
 
     Route::get('/', 'HomeController@index');
-    Route::get('/charts', 'HomeController@charts');
+    Route::get('/data', 'HomeController@data');
+    Route::get('/data/refresh', 'HomeController@refresh');
     Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
 });
