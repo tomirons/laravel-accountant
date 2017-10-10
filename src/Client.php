@@ -2,8 +2,8 @@
 
 namespace TomIrons\Accountant;
 
-use BadMethodCallException;
 use Stripe\Stripe;
+use BadMethodCallException;
 use Illuminate\Support\Collection;
 
 abstract class Client
@@ -48,7 +48,7 @@ abstract class Client
      */
     public function __call($method, $args)
     {
-        if (!$this->methods || in_array($method, $this->methods)) {
+        if (! $this->methods || in_array($method, $this->methods)) {
             return $this->getStripeClass()::$method(...$args);
         }
 
@@ -112,8 +112,8 @@ abstract class Client
             $this->currentPage(),
             compact('path', 'query') + [
                 'morePages' => $this->getStripeClass()->all([
-                    'starting_after' => $collection->last()->id
-                ])->has_more
+                    'starting_after' => $collection->last()->id,
+                ])->has_more,
             ]
         );
     }
@@ -162,7 +162,7 @@ abstract class Client
 
         session()->put([
             'accountant.api.start' => $end,
-            'accountant.api.end' => $start
+            'accountant.api.end' => $start,
         ]);
     }
 

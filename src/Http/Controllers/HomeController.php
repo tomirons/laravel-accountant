@@ -4,6 +4,7 @@ namespace TomIrons\Accountant\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('accountant::dashboard')->with([
-            'stats' => $this->data(new Request)
+            'stats' => $this->data(new Request),
         ]);
     }
 
@@ -41,7 +42,7 @@ class HomeController extends Controller
         if ($request->has(['start', 'end'])) {
             session()->put([
                 'accountant.start' => Carbon::createFromTimestamp($request->get('start')),
-                'accountant.end' => Carbon::createFromTimestamp($request->get('end'))
+                'accountant.end' => Carbon::createFromTimestamp($request->get('end')),
             ]);
         }
 

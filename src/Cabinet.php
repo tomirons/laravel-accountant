@@ -3,11 +3,11 @@
 namespace TomIrons\Accountant;
 
 use Carbon\Carbon;
-use Facades\TomIrons\Accountant\Accountant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use TomIrons\Accountant\Jobs\PutToCache;
+use Facades\TomIrons\Accountant\Accountant;
 
 class Cabinet
 {
@@ -73,7 +73,7 @@ class Cabinet
         $start = session('accountant.start', Carbon::now());
         $end = session('accountant.end', Carbon::now()->addWeek());
 
-        return (new Collection($this->driver->get('accountant.' . $type)))
+        return (new Collection($this->driver->get('accountant.'.$type)))
             ->where('created', '>=', $start->getTimestamp())
             ->where('created', '<=', $end->getTimestamp());
     }
@@ -87,10 +87,10 @@ class Cabinet
     public function empty($type = null)
     {
         if ($type) {
-            $this->driver->delete('accountant.' . $type);
+            $this->driver->delete('accountant.'.$type);
         } else {
             $this->driver->deleteMultiple(array_map(function ($type) {
-                return 'accountant.' . $type;
+                return 'accountant.'.$type;
             }, $this->types));
         }
 
@@ -133,15 +133,15 @@ class Cabinet
 
         return [
             'balance' => [
-                'total' => Accountant::formatAmount($balance->sum->amount)
+                'total' => Accountant::formatAmount($balance->sum->amount),
             ],
             'charges' => [
                 'count' => $charges->count(),
-                'total' => Accountant::formatAmount($charges->sum->amount)
+                'total' => Accountant::formatAmount($charges->sum->amount),
             ],
             'customers' => [
-                'count' => $customers->count()
-            ]
+                'count' => $customers->count(),
+            ],
         ];
     }
 
@@ -153,7 +153,7 @@ class Cabinet
     protected function validate()
     {
         foreach ($this->types as $type) {
-            if (!$this->driver->has('accountant.' . $type)) {
+            if (! $this->driver->has('accountant.'.$type)) {
                 $this->refresh($type);
             }
         }

@@ -22,7 +22,6 @@ class InvoiceController extends Controller
             ->currentPage($request->get('page', 1))
             ->paginate($request->url(), $request->query());
 
-
         return view('accountant::invoices.index', compact('invoices'));
     }
 
