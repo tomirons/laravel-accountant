@@ -17,6 +17,7 @@ class Charge extends Client
 
     /**
      * Gets the name of the Stripe Client name.
+     *
      * @return string
      */
     public function getClientName(): string
