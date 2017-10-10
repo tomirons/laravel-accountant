@@ -2,12 +2,12 @@
 
 namespace TomIrons\Accountant\Jobs;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Cache;
+use TomIrons\Accountant\ClientFactory;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Bus\Queueable;
-use TomIrons\Accountant\ClientFactory;
-use Illuminate\Support\Facades\Cache;
 
 class PutToCache implements ShouldQueue
 {
@@ -42,6 +42,6 @@ class PutToCache implements ShouldQueue
             $data[] = $item;
         }
 
-        $driver->add('accountant.' . $this->type, $data, config('accountant.cache.time', 60));
+        $driver->add('accountant.'.$this->type, $data, config('accountant.cache.time', 60));
     }
 }

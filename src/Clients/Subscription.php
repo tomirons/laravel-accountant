@@ -2,9 +2,9 @@
 
 namespace TomIrons\Accountant\Clients;
 
-use Illuminate\Support\Collection;
-use TomIrons\Accountant\Client;
 use Stripe\Invoice;
+use TomIrons\Accountant\Client;
+use Illuminate\Support\Collection;
 
 class Subscription extends Client
 {
@@ -36,7 +36,7 @@ class Subscription extends Client
     public function invoices($id)
     {
         return new Collection(Invoice::all([
-            'subscription' => $id
+            'subscription' => $id,
         ])->data);
     }
 }

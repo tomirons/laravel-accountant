@@ -38,6 +38,6 @@ return [
 
     'cache' => [
         'driver' => 'file',
-        'time' => 60
-    ]
+        'time' => 60,
+    ],
 ];

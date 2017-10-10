@@ -36,7 +36,7 @@ class CustomerController extends Controller
     {
         $customer = $this->factory->customer->retrieve($id);
         $customer->cards = new Collection($customer->sources->all([
-            'object' => 'card'
+            'object' => 'card',
         ])->data);
         $customer->subscriptions = new Collection($customer->subscriptions->data);
         $customer->invoices = new Collection($customer->invoices()->data);

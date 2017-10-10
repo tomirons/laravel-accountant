@@ -36,7 +36,7 @@ class Accountant
      */
     public function planToReadable($plan)
     {
-        $interval = $plan->interval_count > 1 ? ' every ' . $plan->interval_count . ' ' . str_plural($plan->interval) : '/' . $plan->interval;
+        $interval = $plan->interval_count > 1 ? ' every '.$plan->interval_count.' '.str_plural($plan->interval) : '/'.$plan->interval;
 
         return "{$plan->name} (\${$this->formatAmount($plan->amount)}{$interval})";
     }
