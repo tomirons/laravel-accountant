@@ -9,13 +9,6 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     /**
-     * Instance of the client.
-     *
-     * @var object
-     */
-    protected $factory;
-
-    /**
      * Instance of the Cabinet.
      *
      * @var Cabinet
@@ -23,12 +16,20 @@ class Controller extends BaseController
     protected $cabinet;
 
     /**
+     * Instance of the client.
+     *
+     * @var object
+     */
+    protected $factory;
+
+    /**
      * Controller constructor.
+     *
      * @param object $factory
      */
-    public function __construct(ClientFactory $factory, Cabinet $cabinet)
+    public function __construct(Cabinet $cabinet, ClientFactory $factory)
     {
-        $this->factory = $factory;
         $this->cabinet = $cabinet;
+        $this->factory = $factory;
     }
 }
