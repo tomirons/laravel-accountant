@@ -71,10 +71,10 @@
                             @endif
                         </ul>
                     </div>
-                    @if ($invoice->total > 0 && $invoice->paid)
-                            <div class="col-sm-12">
-                                <a href="{{ url('accountant/charges', ['invoice', $invoice->id]) }}" class="btn btn-primary btn-xs view-all">View all attempts <i class="fa fa-arrow-right"></i></a>
-                            </div>
+                    @if ($invoice->attempt_count > 1 && $invoice->paid)
+                        <div class="col-sm-12">
+                            <a href="{{ url('accountant/charges', ['invoice', $invoice->id]) }}" class="btn btn-primary btn-xs view-all">View all attempts <i class="fa fa-arrow-right"></i></a>
+                        </div>
                     @endif
                 </div>
             </div>
