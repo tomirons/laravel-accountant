@@ -32,12 +32,21 @@ return [
     | Cache Settings
     |--------------------------------------------------------------------------
     |
-    | Here you can change the settings that are used when utilizing the cache
-    | system.
+    | Here you can change the settings that are used when utilizing the cache.
     */
 
     'cache' => [
         'driver' => 'file',
         'time' => 60,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Queue Settings
+    |--------------------------------------------------------------------------
+    |
+    | Here you can change the queue name that is used when dispatching jobs.
+    */
+
+    'queue' => 'accountant'
 ];
