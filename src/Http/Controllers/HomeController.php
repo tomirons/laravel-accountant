@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function refresh()
     {
-        $this->cabinet->refresh();
+        $this->cabinet->empty();
 
         return redirect()->back();
     }
