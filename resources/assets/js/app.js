@@ -21,6 +21,10 @@ var dashboard = new Vue({
             props: ['data', 'options'],
             watch: {
                 data: function () {
+                    if (this._chart) {
+                        this._chart.destroy();
+                    }
+
                     this.renderChart(this.data, {
                         legend: {
                             display: false
