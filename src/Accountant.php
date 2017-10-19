@@ -2,6 +2,8 @@
 
 namespace TomIrons\Accountant;
 
+use Illuminate\Support\Facades\File;
+
 class Accountant
 {
     /**
@@ -39,5 +41,15 @@ class Accountant
         $interval = $plan->interval_count > 1 ? ' every '.$plan->interval_count.' '.str_plural($plan->interval) : '/'.$plan->interval;
 
         return "{$plan->name} (\${$this->formatAmount($plan->amount)}{$interval})";
+    }
+
+    /**
+     * Check if the "refresh" file exists.
+     *
+     * @return bool
+     */
+    public function isCacheRefreshing()
+    {
+        return File::exists(storage_path('laravel-accountant/refresh'));
     }
 }
