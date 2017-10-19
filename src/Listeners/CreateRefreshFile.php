@@ -16,7 +16,7 @@ class CreateRefreshFile
     {
         $path = storage_path('laravel-accountant');
 
-        if (!$event->filesystem->exists($path)) {
+        if (! $event->filesystem->exists($path)) {
             $event->filesystem->makeDirectory($path);
         }
 

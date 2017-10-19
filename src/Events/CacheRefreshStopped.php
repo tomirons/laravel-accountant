@@ -2,7 +2,6 @@
 
 namespace TomIrons\Accountant\Events;
 
-use TomIrons\Accountant\Cabinet;
 use Illuminate\Filesystem\Filesystem;
 
 class CacheRefreshStopped

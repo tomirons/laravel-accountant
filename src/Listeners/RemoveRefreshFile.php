@@ -2,7 +2,6 @@
 
 namespace TomIrons\Accountant\Listeners;
 
-use Illuminate\Filesystem\Filesystem;
 use TomIrons\Accountant\Events\CacheRefreshStopped;
 
 class RemoveRefreshFile
