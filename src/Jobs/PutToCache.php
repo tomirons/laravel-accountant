@@ -3,11 +3,13 @@
 namespace TomIrons\Accountant\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Cache\CacheManager;
 use Illuminate\Support\Facades\Cache;
 use TomIrons\Accountant\ClientFactory;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use TomIrons\Accountant\Events\CacheRefreshStopped;
 
 class PutToCache implements ShouldQueue
 {
@@ -21,11 +23,23 @@ class PutToCache implements ShouldQueue
     protected $type;
 
     /**
-     * PushToCache constructor.
+     * Array of all types.
+     *
+     * @var array
      */
-    public function __construct($type)
+    protected $types;
+
+    /**
+     * Create a new job instance.
+     *
+     * @param string $type
+     * @param array $types
+     * @return void
+     */
+    public function __construct($type, $types)
     {
         $this->type = $type;
+        $this->types = $types;
     }
 
     /**
@@ -43,5 +57,21 @@ class PutToCache implements ShouldQueue
         }
 
         $driver->add('accountant.'.$this->type, $data, config('accountant.cache.time', 60));
+
+        if ($this->finished()) {
+            event(new CacheRefreshStopped);
+        }
+    }
+
+    /**
+     * Check if all data exists.
+     *
+     * @return bool
+     */
+    private function finished()
+    {
+        return empty(array_filter($this->types, function ($type) {
+            return !cache()->has('accountant.'.$type);
+        }));
     }
 }
