@@ -2,8 +2,8 @@
 
 namespace TomIrons\Accountant\Listeners;
 
-use TomIrons\Accountant\Events\CacheRefreshStarted;
 use TomIrons\Accountant\Jobs\PutToCache;
+use TomIrons\Accountant\Events\CacheRefreshStarted;
 
 class ValidateCache
 {
@@ -16,7 +16,7 @@ class ValidateCache
     public function handle(CacheRefreshStarted $event)
     {
         foreach ($event->types as $type) {
-            if (!cache()->has('accountant.'.$type)) {
+            if (! cache()->has('accountant.'.$type)) {
                 dispatch(new PutToCache($type, $event->types))->onQueue(config('accountant.queue'));
             }
         }

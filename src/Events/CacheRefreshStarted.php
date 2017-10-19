@@ -3,7 +3,6 @@
 namespace TomIrons\Accountant\Events;
 
 use Illuminate\Filesystem\Filesystem;
-use TomIrons\Accountant\Cabinet;
 
 class CacheRefreshStarted
 {
@@ -15,7 +14,7 @@ class CacheRefreshStarted
     public $filesystem;
 
     /**
-     * List of types
+     * List of types.
      *
      * @var array
      */

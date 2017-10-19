@@ -48,5 +48,5 @@ return [
     | Here you can change the queue name that is used when dispatching jobs.
     */
 
-    'queue' => 'accountant'
+    'queue' => 'accountant',
 ];

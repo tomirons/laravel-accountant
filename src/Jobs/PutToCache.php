@@ -3,7 +3,6 @@
 namespace TomIrons\Accountant\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Cache\CacheManager;
 use Illuminate\Support\Facades\Cache;
 use TomIrons\Accountant\ClientFactory;
 use Illuminate\Queue\InteractsWithQueue;
@@ -71,7 +70,7 @@ class PutToCache implements ShouldQueue
     private function finished()
     {
         return empty(array_filter($this->types, function ($type) {
-            return !cache()->has('accountant.'.$type);
+            return ! cache()->has('accountant.'.$type);
         }));
     }
 }
