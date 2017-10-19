@@ -4,9 +4,25 @@ namespace TomIrons\Accountant;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class AccountantServiceProvider extends ServiceProvider
 {
+    /**
+     * All accountant events and listeners.
+     *
+     * @var array
+     */
+    protected $events = [
+        Events\CacheRefreshStarted::class => [
+            Listeners\CreateRefreshFile::class,
+            Listeners\ValidateCache::class,
+        ],
+        Events\CacheRefreshStopped::class => [
+            Listeners\RemoveRefreshFile::class,
+        ],
+    ];
+
     /**
      * Bootstrap any application services.
      *
@@ -14,6 +30,7 @@ class AccountantServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerEvents();
         $this->registerRoutes();
         $this->registerResources();
         $this->defineAssetPublishing();
@@ -29,6 +46,22 @@ class AccountantServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/accountant.php', 'accountant'
         );
+    }
+
+    /**
+     * Register the Horizon job events.
+     *
+     * @return void
+     */
+    protected function registerEvents()
+    {
+        $events = $this->app->make(Dispatcher::class);
+
+        foreach ($this->events as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                $events->listen($event, $listener);
+            }
+        }
     }
 
     /**
