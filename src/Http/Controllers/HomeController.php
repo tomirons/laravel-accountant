@@ -46,6 +46,6 @@ class HomeController extends Controller
             ]);
         }
 
-        return $this->cabinet->generate();
+        return $this->cabinet->setDates()->generate();
     }
 }
