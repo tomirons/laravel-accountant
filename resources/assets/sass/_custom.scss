@@ -252,3 +252,7 @@ span {
 .bootstrap-datetimepicker-widget {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+[v-cloak] {
+  display: none;
+}
