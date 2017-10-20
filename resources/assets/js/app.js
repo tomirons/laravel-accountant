@@ -18,18 +18,37 @@ var dashboard = new Vue({
         datePicker,
         'line-chart': {
             extends: Line,
-            props: ['data', 'options'],
+            props: ['data', 'options', 'dollar'],
             watch: {
                 data: function () {
                     if (this._chart) {
                         this._chart.destroy();
                     }
 
-                    this.renderChart(this.data, {
-                        legend: {
-                            display: false
-                        }
-                    })
+                    var options;
+
+                    if (this.dollar) {
+                        options = {
+                            legend: {
+                                display: false
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function (tooltipItems, data) {
+                                        return "$" + tooltipItems.yLabel.toFixed(2);
+                                    }
+                                }
+                            }
+                        };
+                    } else {
+                        options = {
+                            legend: {
+                                display: false
+                            }
+                        };
+                    }
+
+                    this.renderChart(this.data, options)
                 }
             }
         }
