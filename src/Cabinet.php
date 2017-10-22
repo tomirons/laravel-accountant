@@ -4,7 +4,6 @@ namespace TomIrons\Accountant;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use TomIrons\Accountant\Jobs\PutToCache;
 use Facades\TomIrons\Accountant\Accountant;
@@ -51,12 +50,8 @@ class Cabinet
      */
     public function refresh($type = null)
     {
-        if ($type) {
+        foreach (array_wrap($type ?: $this->types) as $type) {
             $this->refile($type);
-        } else {
-            foreach ($this->types as $type) {
-                $this->refile($type);
-            }
         }
 
         return $this;
@@ -73,7 +68,7 @@ class Cabinet
         $start = session('accountant.start', Carbon::now());
         $end = session('accountant.end', Carbon::now()->addWeek());
 
-        return (new Collection($this->driver->get('accountant.'.$type)))
+        return collect($this->driver->get('accountant.'.$type))
             ->where('created', '>=', $start->getTimestamp())
             ->where('created', '<=', $end->getTimestamp());
     }
@@ -86,13 +81,9 @@ class Cabinet
      */
     public function empty($type = null)
     {
-        if ($type) {
-            $this->driver->delete('accountant.'.$type);
-        } else {
-            $this->driver->deleteMultiple(array_map(function ($type) {
-                return 'accountant.'.$type;
-            }, $this->types));
-        }
+        $this->driver->deleteMultiple(array_map(function ($type) {
+            return 'accountant.'.$type;
+        }, array_wrap($type ?: $this->types)));
 
         return $this;
     }
@@ -129,7 +120,7 @@ class Cabinet
         $balance = $this->search('balance_transaction');
         $charges = $this->search('charge');
         $customers = $this->search('customer');
-        $subscriptions = $this->search('subscription');
+        $this->search('subscription');
 
         return [
             'balance' => [
@@ -152,10 +143,12 @@ class Cabinet
      */
     protected function validate()
     {
-        foreach ($this->types as $type) {
-            if (! $this->driver->has('accountant.'.$type)) {
+        collect($this->types)
+            ->reject(function ($type) {
+                return $this->driver->has($type);
+            })
+            ->each(function ($type) {
                 $this->refresh($type);
-            }
-        }
+            });
     }
 }
