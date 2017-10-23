@@ -23,3 +23,5 @@ window.Chart = require('chartjs');
 window.moment = require('moment')
 
 window.Vue = require('vue');
+
+Vue.prototype.$http = axios.create();
