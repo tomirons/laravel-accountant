@@ -1,5 +1,5 @@
 @extends('accountant::app')
 
 @section('content')
-    <dashboard-component></dashboard-component>
+    <dashboard-component :refreshing="'{{ Accountant::isCacheRefreshing() }}'"></dashboard-component>
 @endsection

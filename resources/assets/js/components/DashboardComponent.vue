@@ -42,6 +42,7 @@
                 }
             }
         },
+        props: ['refreshing'],
         data() {
             return {
                 data: null
@@ -58,6 +59,9 @@
 <template>
     <div>
         <date-range></date-range>
+        <div class="alert alert-info" v-if="refreshing">
+            The data is now being refreshed, this may take awhile.
+        </div>
         <div class="row" v-if="data" v-cloak>
             <div class="col-sm-6">
                 <div class="panel panel-info">
