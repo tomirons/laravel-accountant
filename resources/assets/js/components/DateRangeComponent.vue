@@ -65,7 +65,7 @@
             <div class="pull-right">
                 <span class="filtered-range hidden-sm hidden-xs">Show between <strong>{{ start.format('MM/DD/YYYY') }}</strong> and <strong>{{ end.format('MM/DD/YYYY') }}</strong></span>
                 <button class="btn btn-clear" v-on:click="toggle()"><i class="fa fa-filter"></i></button>
-                <a href="#" class="btn btn-clear"><i class="fa fa-refresh"></i></a>
+                <a href="/accountant/refresh" class="btn btn-clear"><i class="fa fa-refresh"></i></a>
             </div>
         </div>
     </div>
