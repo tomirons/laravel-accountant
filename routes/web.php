@@ -26,7 +26,7 @@ Route::group(['middleware' => config('accountant.middleware', 'auth')], function
 
     Route::get('/', 'HomeController@index');
     Route::post('/data', 'HomeController@data');
-    Route::get('/data/refresh', 'HomeController@refresh');
+    Route::get('/refresh', 'HomeController@refresh');
     Route::get('/filters', 'HomeController@filters');
     Route::get('{view}', 'HomeController@index')->where('view', '(.*)');
 });
