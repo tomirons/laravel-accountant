@@ -8,7 +8,6 @@ use DatePeriod;
 use Illuminate\Cache\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use TomIrons\Accountant\Events\CacheRefreshStarted;
 use Facades\TomIrons\Accountant\Accountant;
@@ -106,7 +105,7 @@ class Cabinet
      */
     public function search($type)
     {
-        return (new Collection($this->driver->get('accountant.'.$type)))
+        return collect($this->driver->get('accountant.'.$type))
             ->where('created', '>=', $this->start->startOfDay()->getTimestamp())
             ->where('created', '<=', $this->end->endOfDay()->getTimestamp());
     }
@@ -129,7 +128,7 @@ class Cabinet
             $days[] = Carbon::createFromDate($period->format('Y'), $period->format('m'), $period->format('d'));
         }
 
-        return new Collection($days);
+        return collect($days);
     }
 
     /**
@@ -150,7 +149,7 @@ class Cabinet
             $months[] = $period->format('M Y');
         }
 
-        return new Collection($months);
+        return collect($months);
     }
 
     /**

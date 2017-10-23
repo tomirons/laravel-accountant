@@ -15,10 +15,12 @@ class ValidateCache
      */
     public function handle(CacheRefreshStarted $event)
     {
-        foreach ($event->types as $type) {
-            if (! cache()->has('accountant.'.$type)) {
+        collect($event->types)
+            ->reject(function ($type) {
+                return cache()->has('accountant.' . $type);
+            })
+            ->each(function ($type) use ($event) {
                 dispatch(new PutToCache($type, $event->types))->onQueue(config('accountant.queue'));
-            }
-        }
+            });
     }
 }
