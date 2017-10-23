@@ -26,10 +26,10 @@
                     start: this.start.unix(),
                     end: this.end.unix()
                 })
-                .then(response => {
-                    this.setData(response.data);
-                    this.toggle();
-                });
+                    .then(response => {
+                        this.setData(response.data);
+                        this.toggle();
+                    });
             },
             setData: function (data) {
                 this.$parent.setData(data);

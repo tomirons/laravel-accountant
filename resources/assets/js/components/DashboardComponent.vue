@@ -1,10 +1,10 @@
 <script type="text/ecmascript-6">
     import { Line } from 'vue-chartjs';
-    import FilterRange from '../components/FilterComponent.vue';
+    import DateRange from '../components/DateRangeComponent.vue';
 
     export default {
         components: {
-            FilterRange,
+            DateRange,
             'line-chart': {
                 extends: Line,
                 props: ['data', 'options', 'dollar'],
@@ -57,7 +57,7 @@
 
 <template>
     <div>
-        <filter-range></filter-range>
+        <date-range></date-range>
         <div class="row" v-if="data" v-cloak>
             <div class="col-sm-6">
                 <div class="panel panel-info">
