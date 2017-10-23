@@ -2,16 +2,14 @@
 
 namespace TomIrons\Accountant;
 
+use DatePeriod;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use DatePeriod;
-use Illuminate\Cache\Repository;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use TomIrons\Accountant\Events\CacheRefreshStarted;
-use Facades\TomIrons\Accountant\Accountant;
 use BadMethodCallException;
+use Illuminate\Cache\Repository;
+use Illuminate\Support\Facades\Cache;
+use Facades\TomIrons\Accountant\Accountant;
+use TomIrons\Accountant\Events\CacheRefreshStarted;
 
 class Cabinet
 {
@@ -62,9 +60,9 @@ class Cabinet
      */
     protected function validate()
     {
-        if (!Accountant::isCacheRefreshing()) {
+        if (! Accountant::isCacheRefreshing()) {
             foreach ($this->types as $type) {
-                if (!$this->driver->has('accountant.'.$type)) {
+                if (! $this->driver->has('accountant.'.$type)) {
                     event(new CacheRefreshStarted($this->types));
                     break;
                 }
@@ -118,7 +116,7 @@ class Cabinet
     protected function days()
     {
         if ($this->start->gt($this->end)) {
-            return null;
+            return;
         }
 
         $interval = CarbonInterval::day();
@@ -139,7 +137,7 @@ class Cabinet
     protected function months()
     {
         if ($this->start->gt($this->end)) {
-            return null;
+            return;
         }
 
         $interval = CarbonInterval::month();
@@ -266,7 +264,7 @@ class Cabinet
      */
     protected function chartData($name)
     {
-        if (!method_exists($this, $method = $name.'Data')) {
+        if (! method_exists($this, $method = $name.'Data')) {
             throw new BadMethodCallException("Method [$method] doesn't exist in this class.");
         }
 
@@ -278,9 +276,9 @@ class Cabinet
                     'borderColor' => 'rgb(59,141,236)',
                     'data' => $this->$method()->map(function ($item) {
                         return number_format($item->sum(), 2);
-                    })->values()
-                ]
-            ]
+                    })->values(),
+                ],
+            ],
         ];
     }
 
@@ -317,7 +315,7 @@ class Cabinet
             ],
             'subscriptions' => [
                 'revenue' => $subscriptions->filter(function ($subscription) {
-                    return !in_array($subscription->status, ['canceled', 'trialing'])
+                    return ! in_array($subscription->status, ['canceled', 'trialing'])
                         && $subscription->ended_at == null
                         && $subscription->quantity > 0;
                 })->sum(function ($subscription) {
