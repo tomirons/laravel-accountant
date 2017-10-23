@@ -3,61 +3,97 @@
 namespace TomIrons\Accountant;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
+use DatePeriod;
+use Illuminate\Cache\Repository;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use TomIrons\Accountant\Jobs\PutToCache;
+use TomIrons\Accountant\Events\CacheRefreshStarted;
 use Facades\TomIrons\Accountant\Accountant;
+use BadMethodCallException;
 
 class Cabinet
 {
     /**
      * Instance of the cache driver.
      *
-     * @var \Illuminate\Contracts\Cache\Repository
+     * @var Repository
      */
-    protected $driver;
-
-    /**
-     * Instance of the request.
-     *
-     * @var Illuminate\Http\Request;
-     */
-    protected $request;
+    public $driver;
 
     /**
      * Array of object types.
      *
      * @var array
      */
-    protected $types = ['balance_transaction', 'charge', 'customer', 'invoice', 'subscription'];
+    public $types = ['charge', 'customer', 'invoice', 'subscription'];
 
     /**
-     * Cabinet constructor.
+     * Start date.
+     *
+     * @var Carbon
      */
-    public function __construct(Request $request)
+    protected $start;
+
+    /**
+     * End date.
+     *
+     * @var Carbon
+     */
+    protected $end;
+
+    /**
+     * Create a new cabinet instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $this->request = $request;
         $this->driver = Cache::driver(config('accountant.config.driver', 'file'));
 
         $this->validate();
     }
 
     /**
-     * Delete and reload data for all/specific type(s).
+     * Check the cache if each type exists, fire the refresh event if it doesn't.
      *
-     * @param string|null $type
-     * @return $this
+     * @return void
      */
-    public function refresh($type = null)
+    protected function validate()
     {
-        if ($type) {
-            $this->refile($type);
-        } else {
+        if (!Accountant::isCacheRefreshing()) {
             foreach ($this->types as $type) {
-                $this->refile($type);
+                if (!$this->driver->has('accountant.'.$type)) {
+                    event(new CacheRefreshStarted($this->types));
+                    break;
+                }
             }
         }
+    }
+
+    /**
+     * Delete all data from the cache.
+     *
+     * @return void
+     */
+    public function empty()
+    {
+        $this->driver->deleteMultiple(array_map(function ($type) {
+            return 'accountant.'.$type;
+        }, $this->types));
+    }
+
+    /**
+     * Set the start and end dates using the session or default values.
+     *
+     * @return $this
+     */
+    public function setDates()
+    {
+        $this->start = session('accountant.start', Carbon::now()->subMonth());
+        $this->end = session('accountant.end', Carbon::now());
 
         return $this;
     }
@@ -66,57 +102,187 @@ class Cabinet
      * Return the collection of a specific type from the cache.
      *
      * @param string $type
-     * @return Illuminate\Support\Collection
+     * @return Collection
      */
     public function search($type)
     {
-        $start = session('accountant.start', Carbon::now());
-        $end = session('accountant.end', Carbon::now()->addWeek());
-
         return (new Collection($this->driver->get('accountant.'.$type)))
-            ->where('created', '>=', $start->getTimestamp())
-            ->where('created', '<=', $end->getTimestamp());
+            ->where('created', '>=', $this->start->startOfDay()->getTimestamp())
+            ->where('created', '<=', $this->end->endOfDay()->getTimestamp());
     }
 
     /**
-     * Clear all/specific object type(s) from the cache.
+     * Get collection of days to use for the chart depending on the start/end dates.
      *
-     * @param string|null $type
-     * @return $this
+     * @return Collection
      */
-    public function empty($type = null)
+    protected function days()
     {
-        if ($type) {
-            $this->driver->delete('accountant.'.$type);
-        } else {
-            $this->driver->deleteMultiple(array_map(function ($type) {
-                return 'accountant.'.$type;
-            }, $this->types));
+        if ($this->start->gt($this->end)) {
+            return null;
         }
 
-        return $this;
+        $interval = CarbonInterval::day();
+        $periods = new DatePeriod($this->start->copy(), $interval, $this->end->copy());
+
+        foreach ($periods as $period) {
+            $days[] = Carbon::createFromDate($period->format('Y'), $period->format('m'), $period->format('d'));
+        }
+
+        return new Collection($days);
     }
 
     /**
-     * Dispatch job to store data.
+     * Get collection of months to use for the chart depending on the start/end dates.
      *
-     * @param string $type
-     * @return void
+     * @return Collection
      */
-    protected function store($type)
+    protected function months()
     {
-        dispatch(new PutToCache($type));
+        if ($this->start->gt($this->end)) {
+            return null;
+        }
+
+        $interval = CarbonInterval::month();
+        $periods = new DatePeriod($this->start->copy()->startOfMonth(), $interval, $this->end->copy()->endOfMonth());
+
+        foreach ($periods as $period) {
+            $months[] = $period->format('M Y');
+        }
+
+        return new Collection($months);
     }
 
     /**
-     * Clear and reload data for a specific type.
+     * Return array of data for the gross chart.
      *
-     * @param $type
-     * @return void
+     * @return array
      */
-    protected function refile($type)
+    protected function grossData()
     {
-        $this->empty($type)->store($type);
+        $charges = $this->filterUnuccessfulCharges();
+
+        return $this->days()->mapToGroups(function ($day) use ($charges) {
+            return [$day->format('M Y') => $this->sumChargesOnDay($charges, $day)];
+        });
+    }
+
+    /**
+     * Return array of data for the payments chart.
+     *
+     * @return array
+     */
+    protected function paymentsData()
+    {
+        $charges = $this->filterUnuccessfulCharges();
+
+        return $this->days()->mapToGroups(function ($day) use ($charges) {
+            return [$day->format('M Y') => $charges->filter(function ($charge) use ($day) {
+                return $charge->created >= $day->startOfDay()->getTimestamp()
+                    && $charge->created <= $day->endOfDay()->getTimestamp();
+            })->count()];
+        });
+    }
+
+    /**
+     * Return array of data for the customers chart.
+     *
+     * @return array
+     */
+    protected function customersData()
+    {
+        $customers = $this->search('customer');
+
+        return $this->days()->mapToGroups(function ($day) use ($customers) {
+            return [$day->format('M Y') => $customers->filter(function ($customer) use ($day) {
+                return $customer->created >= $day->startOfDay()->getTimestamp()
+                    && $customer->created <= $day->endOfDay()->getTimestamp();
+            })->count()];
+        });
+    }
+
+    /**
+     * Return array of data for the refunded chart.
+     *
+     * @return array
+     */
+    protected function refundedData()
+    {
+        $charges = $this->search('charge');
+
+        return $this->days()->mapToGroups(function ($day) use ($charges) {
+            return [$day->format('M Y') => $charges->filter(function ($charge) use ($day) {
+                return $charge->created >= $day->startOfDay()->getTimestamp()
+                    && $charge->created <= $day->endOfDay()->getTimestamp();
+            })->sum(function ($charge) {
+                return $charge->amount_refunded / 100;
+            })];
+        });
+    }
+
+    /**
+     * Filter out all unsuccessful charges.
+     *
+     * @return Collection
+     */
+    protected function filterUnuccessfulCharges()
+    {
+        return $this->search('charge')->filter(function ($charge) {
+            return $charge->paid && $charge->status == 'succeeded';
+        });
+    }
+
+    /**
+     * Calculate the sum of all charges for a specific day.
+     *
+     * @param $charges
+     * @param $day
+     * @return string
+     */
+    protected function sumChargesOnDay($charges, $day)
+    {
+        return Accountant::formatAmount($charges->filter(function ($charge) use ($day) {
+            return $this->isChargeOnDay($charge, $day);
+        })->sum->amount);
+    }
+
+    /**
+     * Check if the charge was made on a specific day.
+     *
+     * @param $charge
+     * @param $day
+     * @return bool
+     */
+    protected function isChargeOnDay($charge, $day)
+    {
+        return $charge->created >= $day->startOfDay()->getTimestamp()
+            && $charge->created <= $day->endOfDay()->getTimestamp();
+    }
+
+    /**
+     * Return array of data for a specific chart.
+     *
+     * @param $name
+     * @return array
+     */
+    protected function chartData($name)
+    {
+        if (!method_exists($this, $method = $name.'Data')) {
+            throw new BadMethodCallException("Method [$method] doesn't exist in this class.");
+        }
+
+        return [
+            'labels' => $this->months()->toArray(),
+            'datasets' => [
+                0 => [
+                    'backgroundColor' => 'rgba(59,141,236, .3)',
+                    'borderColor' => 'rgb(59,141,236)',
+                    'data' => $this->$method()->map(function ($item) {
+                        return number_format($item->sum(), 2);
+                    })->values()
+                ]
+            ]
+        ];
     }
 
     /**
@@ -126,36 +292,39 @@ class Cabinet
      */
     public function generate()
     {
-        $balance = $this->search('balance_transaction');
         $charges = $this->search('charge');
         $customers = $this->search('customer');
         $subscriptions = $this->search('subscription');
 
         return [
-            'balance' => [
-                'total' => Accountant::formatAmount($balance->sum->amount),
+            'charts' => [
+                'customers' => $this->chartData('customers'),
+                'gross' => $this->chartData('gross'),
+                'payments' => $this->chartData('payments'),
+                'refunded' => $this->chartData('refunded'),
             ],
             'charges' => [
                 'count' => $charges->count(),
-                'total' => Accountant::formatAmount($charges->sum->amount),
+                'refunded' => Accountant::formatAmount($charges->sum->amount_refunded),
+                'successful' => $charges->filter(function ($charge) {
+                    return $charge->paid && $charge->status == 'succeeded';
+                })->count(),
+                'total' => Accountant::formatAmount($charges->filter(function ($charge) {
+                    return $charge->paid && $charge->status == 'succeeded';
+                })->sum->amount),
             ],
             'customers' => [
                 'count' => $customers->count(),
             ],
+            'subscriptions' => [
+                'revenue' => $subscriptions->filter(function ($subscription) {
+                    return !in_array($subscription->status, ['canceled', 'trialing'])
+                        && $subscription->ended_at == null
+                        && $subscription->quantity > 0;
+                })->sum(function ($subscription) {
+                    return $subscription->plan->amount;
+                }),
+            ],
         ];
-    }
-
-    /**
-     * Check the cache if each type exists, refresh if it doesn't.
-     *
-     * @return void
-     */
-    protected function validate()
-    {
-        foreach ($this->types as $type) {
-            if (! $this->driver->has('accountant.'.$type)) {
-                $this->refresh($type);
-            }
-        }
     }
 }
