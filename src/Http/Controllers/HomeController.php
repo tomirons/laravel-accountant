@@ -48,4 +48,17 @@ class HomeController extends Controller
 
         return $this->cabinet->setDates()->generate();
     }
+
+    /**
+     * Return the dates for the date filter.
+     *
+     * @return array
+     */
+    public function filters()
+    {
+        return [
+            'start' => session()->get('accountant.start', Carbon::now()->subMonth())->format('m/d/Y'),
+            'end' => session()->get('accountant.end', Carbon::now())->format('m/d/Y')
+        ];
+    }
 }
