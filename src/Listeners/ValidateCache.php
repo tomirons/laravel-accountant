@@ -17,7 +17,7 @@ class ValidateCache
     {
         collect($event->types)
             ->reject(function ($type) {
-                return cache()->has('accountant.' . $type);
+                return cache()->has('accountant.'.$type);
             })
             ->each(function ($type) use ($event) {
                 dispatch(new PutToCache($type, $event->types))->onQueue(config('accountant.queue'));
