@@ -51,11 +51,7 @@ class PutToCache implements ShouldQueue
         $driver = Cache::driver(config('accountant.config.driver', 'file'));
         $items = $factory->{$this->type}->all();
 
-        foreach ($items->autoPagingIterator() as $item) {
-            $data[] = $item;
-        }
-
-        $driver->add('accountant.'.$this->type, $data, config('accountant.cache.time', 60));
+        $driver->add('accountant.'.$this->type, iterator_to_array($items->autoPagingIterator()), config('accountant.cache.time', 60));
 
         if ($this->finished()) {
             event(new CacheRefreshStopped);
