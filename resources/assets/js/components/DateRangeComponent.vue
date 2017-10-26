@@ -10,7 +10,7 @@
                 start: null,
                 end: null,
                 show: false,
-                max: moment().format('MM/DD/YYYY')
+                max: moment()
             }
         },
         created() {
@@ -26,10 +26,13 @@
                     start: this.start.unix(),
                     end: this.end.unix()
                 })
-                    .then(response => {
-                        this.setData(response.data);
-                        this.toggle();
-                    });
+                .then(response => {
+                    this.setData(response.data);
+                    this.toggle();
+                })
+                .catch(error => {
+                    this.end = moment();
+                });
             },
             setData: function (data) {
                 this.$parent.setData(data);
