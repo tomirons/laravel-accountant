@@ -46,7 +46,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you can change the queue name that is used when dispatching jobs.
+    | By default this is null, if you'd like to use a named queue you'll
+    | have to create a worker for the specified queue.
     */
 
-    'queue' => 'accountant',
+    'queue' => null,
 ];
