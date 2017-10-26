@@ -1,6 +1,7 @@
 <script type="text/ecmascript-6">
     import { Line } from 'vue-chartjs';
     import DateRange from '../components/DateRangeComponent.vue';
+    import notify from 'bootstrap-notify';
 
     export default {
         components: {
