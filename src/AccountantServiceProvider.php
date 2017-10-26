@@ -46,6 +46,8 @@ class AccountantServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/accountant.php', 'accountant'
         );
+
+        $this->offerPublishing();
     }
 
     /**
@@ -100,5 +102,19 @@ class AccountantServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/accountant'),
         ], 'accountant-assets');
+    }
+
+    /**
+     * Setup the resource publishing groups.
+     *
+     * @return void
+     */
+    protected function offerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/accountant.php' => config_path('accountant.php'),
+            ], 'accountant-config');
+        }
     }
 }
