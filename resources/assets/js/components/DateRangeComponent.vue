@@ -22,6 +22,11 @@
         },
         methods: {
             applyFilter: function () {
+                if (this.end.isBefore(this.start)) {
+                    this.end = moment();
+                    return;
+                }
+
                 this.$http.post('/accountant/data', {
                     start: this.start.unix(),
                     end: this.end.unix()
@@ -29,9 +34,6 @@
                 .then(response => {
                     this.setData(response.data);
                     this.toggle();
-                })
-                .catch(error => {
-                    this.end = moment();
                 });
             },
             setData: function (data) {
