@@ -2,7 +2,6 @@
     import moment from 'moment';
     import datePicker from 'vue-bootstrap-datetimepicker';
 
-
     export default {
         components: {datePicker},
         data() {
@@ -23,6 +22,14 @@
         methods: {
             applyFilter: function () {
                 if (this.end.isBefore(this.start)) {
+                    $.notify({
+                        message: "End date <strong>must</strong> be after the start date, therefore, the end date has been reset."
+                    },{
+                        placement: {
+                            from: 'bottom'
+                        },
+                        type: 'danger'
+                    });
                     this.end = moment();
                     return;
                 }
