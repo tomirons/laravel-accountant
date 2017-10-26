@@ -32,7 +32,7 @@ Accountant is a beautiful dashboard where you can view Stripe data without ever 
     
 ## Usage
 
-All routes for accountant are prefixed with `accountant`. So to view the dashboard head to `http://example.dev/accountant`. By default we use the `auth` middleware, feel free to add or change this in the confiuration.
+All routes for accountant are prefixed with `accountant`, so to view the dashboard head to `http://example.dev/accountant`. By default we use the `auth` middleware, feel free to add or change this in the configuration.
 
 ## License
 
