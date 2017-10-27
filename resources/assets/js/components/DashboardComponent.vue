@@ -54,9 +54,6 @@
                 $.notify({
                     message: 'Data is being refreshed, this may take awhile.'
                 },{
-                    placement: {
-                        from: 'bottom'
-                    },
                     type: 'info'
                 });
             }

@@ -25,9 +25,6 @@
                     $.notify({
                         message: "End date <strong>must</strong> be after the start date, therefore, the end date has been reset."
                     },{
-                        placement: {
-                            from: 'bottom'
-                        },
                         type: 'danger'
                     });
                     this.end = moment();
