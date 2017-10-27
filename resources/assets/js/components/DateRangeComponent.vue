@@ -61,7 +61,7 @@
 <template>
     <div class="row data-actions" v-cloak>
         <div class="col-sm-4 col-sm-offset-8" v-if="show">
-            <div class="col-sm-11">
+            <div class="col-xs-11 col-sm-11">
                 <div class="input-group">
                     <date-picker class="text-center" v-model="start" :config="{ format: 'MM/DD/YYYY', maxDate: max }"></date-picker>
                     <span class="input-group-addon middle">to</span>
