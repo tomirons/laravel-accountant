@@ -1,7 +1,7 @@
 # Laravel Accountant
 [![Version](https://poser.pugx.org/tomirons/laravel-accountant/v/stable.svg)](https://packagist.org/packages/tomirons/laravel-accountant)
 [![Total Downloads](https://img.shields.io/packagist/dt/tomirons/laravel-accountant.svg)](https://packagist.org/packages/tomirons/laravel-accountant)
-[![Build Status](https://travis-ci.org/tomirons/laravel-accountant.svg?branch=master)](https://travis-ci.org/tomirons/laravel-accountant)
+[![Build Status](https://travis-ci.org/tomirons/laravel-accountant.svg)](https://travis-ci.org/tomirons/laravel-accountant)
 [![License](https://poser.pugx.org/tomirons/laravel-accountant/license.svg)](https://packagist.org/packages/tomirons/laravel-accountant)
 
 ## Introduction
