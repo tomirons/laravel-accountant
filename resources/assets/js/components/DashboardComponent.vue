@@ -1,6 +1,7 @@
 <script type="text/ecmascript-6">
     import { Line } from 'vue-chartjs';
     import DateRange from '../components/DateRangeComponent.vue';
+    import notify from 'bootstrap-notify';
 
     export default {
         components: {
@@ -48,6 +49,15 @@
                 data: null
             }
         },
+        mounted() {
+            if (this.refreshing) {
+                $.notify({
+                    message: 'Data is being refreshed, this may take awhile.'
+                },{
+                    type: 'info'
+                });
+            }
+        },
         methods: {
             setData: function (data) {
                 this.data = data;
@@ -59,9 +69,6 @@
 <template>
     <div>
         <date-range></date-range>
-        <div class="alert alert-info" v-if="refreshing">
-            The data is now being refreshed, this may take awhile.
-        </div>
         <div class="row" v-if="data" v-cloak>
             <div class="col-sm-6">
                 <div class="panel panel-info">

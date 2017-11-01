@@ -18,8 +18,6 @@ if (token) {
 }
 
 /* Plugin Imports */
-window.Chart = require('chartjs');
-
 window.moment = require('moment')
 
 window.Vue = require('vue');
