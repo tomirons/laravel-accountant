@@ -39,8 +39,6 @@ class ChargeController extends Controller
             $charge->balance = $this->factory->balance_transaction->retrieve($charge->balance_transaction);
         }
 
-//        dd($charge);
-
         return view('accountant::charges.show', compact('charge'));
     }
 }
