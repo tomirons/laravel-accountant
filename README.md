@@ -34,6 +34,10 @@ Accountant is a beautiful dashboard where you can view Stripe data without ever 
 
 All routes for accountant are prefixed with `accountant`, so to view the dashboard head to `http://example.dev/accountant`. By default we use the `auth` middleware, feel free to add or change this in the configuration.
 
+## Screenshot
+
+![Dashboard](https://i.imgur.com/oGUJG3I.png)
+
 ## License
 
 Laravel Accountant is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
