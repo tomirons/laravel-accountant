@@ -2,8 +2,8 @@
 
 namespace TomIrons\Accountant;
 
-use Illuminate\Support\Str;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Str;
 
 class ClientFactory
 {
