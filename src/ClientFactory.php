@@ -2,6 +2,7 @@
 
 namespace TomIrons\Accountant;
 
+use Illuminate\Support\Str;
 use Illuminate\Contracts\Foundation\Application;
 
 class ClientFactory
@@ -31,7 +32,7 @@ class ClientFactory
      */
     public function __get($method)
     {
-        $class = __NAMESPACE__.'\\Clients\\'.studly_case($method);
+        $class = __NAMESPACE__.'\\Clients\\'.Str::studly($method);
 
         return $this->app->make($class);
     }
