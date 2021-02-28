@@ -11,7 +11,7 @@ Accountant is a beautiful dashboard where you can view Stripe data without ever 
 ## Requirements
 
 - PHP > 7.3
-- Laravel 5.6.*
+- Laravel 6.x, 7.x, 8.x
 - Configured Queue Driver
 
 ## Installation
