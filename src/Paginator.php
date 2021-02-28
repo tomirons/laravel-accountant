@@ -2,8 +2,8 @@
 
 namespace TomIrons\Accountant;
 
-use Illuminate\Support\Arr;
 use Illuminate\Pagination\Paginator as BasePaginator;
+use Illuminate\Support\Arr;
 
 class Paginator extends BasePaginator
 {
