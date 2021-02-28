@@ -3,8 +3,8 @@
 namespace TomIrons\Accountant;
 
 use BadMethodCallException;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Stripe\Stripe;
 
 abstract class Client
@@ -157,7 +157,7 @@ abstract class Client
      */
     protected function points($start, $end = null)
     {
-        if (str_contains($start, ['start', 'end'])) {
+        if (Str::contains($start, ['start', 'end'])) {
             return session()->get('accountant.api.'.$start);
         }
 
