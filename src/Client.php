@@ -3,8 +3,8 @@
 namespace TomIrons\Accountant;
 
 use BadMethodCallException;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Stripe\Stripe;
 
 abstract class Client
