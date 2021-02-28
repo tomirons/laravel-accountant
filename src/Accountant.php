@@ -3,6 +3,7 @@
 namespace TomIrons\Accountant;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class Accountant
 {
