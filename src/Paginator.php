@@ -3,6 +3,7 @@
 namespace TomIrons\Accountant;
 
 use Illuminate\Pagination\Paginator as BasePaginator;
+use Illuminate\Support\Arr;
 
 class Paginator extends BasePaginator
 {
@@ -43,7 +44,7 @@ class Paginator extends BasePaginator
      */
     protected function resetQuery()
     {
-        array_forget($this->query, ['start', 'end']);
+        Arr::forget($this->query, ['start', 'end']);
     }
 
     /**

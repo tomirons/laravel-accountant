@@ -95,7 +95,7 @@
                 <div class="list-group">
                     @foreach ($customer->subscriptions as $subscription)
                         <a href="{{ url('accountant/subscriptions', $subscription->id) }}" class="list-group-item">
-                            <span class="text-primary">{{ $subscription->plan->name }} (${{ Accountant::formatAmount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . str_plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})</span>
+                            <span class="text-primary">{{ $subscription->plan->name }} (${{ Accountant::formatAmount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . \Illuminate\Support\Str::plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})</span>
                             <span class="pull-right">
                                 @if ($subscription->canceled_at)
                                     Cancels {{ Accountant::formatDate($subscription->canceled_at, 'Y/m/d') }}

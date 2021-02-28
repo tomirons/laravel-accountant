@@ -26,7 +26,7 @@
                                 <span class="attribute-label">Customer:</span> <a href="{{ url('accountant/customers', $subscription->customer->id) }}">{{ $subscription->customer->email }}</a>
                             </li>
                             <li>
-                                <span class="attribute-label">Plan:</span> {{ $subscription->plan->name }} (${{ Accountant::formatAmount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . str_plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})
+                                <span class="attribute-label">Plan:</span> {{ $subscription->plan->name }} (${{ Accountant::formatAmount($subscription->plan->amount) . ($subscription->plan->interval_count > 1 ? ' every ' . \Illuminate\Support\Str::plural($subscription->plan->interval) : '/' . $subscription->plan->interval) }})
                             </li>
                             <li>
                                 <span class="attribute-label">Quantity:</span> {{ $subscription->quantity }}

@@ -9,10 +9,10 @@
     }
   ],
   "require": {
-    "php": ">=7.1.0",
-    "illuminate/contracts": "5.5.*",
-    "illuminate/support": "5.5.*",
-    "illuminate/pagination": "5.5.*",
+    "php": "^7.3",
+    "illuminate/contracts": "^6.0|^7.0|^8.0",
+    "illuminate/support": "^6.0|^7.0|^8.0",
+    "illuminate/pagination": "^6.0|^7.0|^8.0",
     "stripe/stripe-php": "^5.1"
   },
   "require-dev": {
@@ -31,7 +31,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0-dev"
+      "dev-master": "2.x-dev"
     },
     "laravel": {
       "providers": [

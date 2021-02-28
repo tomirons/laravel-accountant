@@ -10,8 +10,8 @@ Accountant is a beautiful dashboard where you can view Stripe data without ever 
 
 ## Requirements
 
-- PHP >= 7.1
-- Laravel 5.5.*
+- PHP > 7.3
+- Laravel 6.x, 7.x, 8.x
 - Configured Queue Driver
 
 ## Installation
@@ -21,18 +21,22 @@ Accountant is a beautiful dashboard where you can view Stripe data without ever 
     ````shell
     composer require tomirons/laravel-accountant
     ````
-    
+
 2) Run the following command to publish the assets and configuration
 
     ````shell
     php artisan vendor:publish --provider="TomIrons\Accountant\AccountantServiceProvider"
     ````
     **Note:** When updating, `--force` will need to be suffixed to replace all assets. If you've updated the configuration file, you'll want to also add `--tag=accountant-assets` so it doesn't get replaced.
-    
-    
+
+
 ## Usage
 
 All routes for accountant are prefixed with `accountant`, so to view the dashboard head to `http://example.dev/accountant`. By default we use the `auth` middleware, feel free to add or change this in the configuration.
+
+## Screenshot
+
+![Dashboard](https://i.imgur.com/oGUJG3I.png)
 
 ## License
 

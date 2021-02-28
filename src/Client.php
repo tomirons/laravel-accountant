@@ -2,9 +2,10 @@
 
 namespace TomIrons\Accountant;
 
-use Stripe\Stripe;
 use BadMethodCallException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Stripe\Stripe;
 
 abstract class Client
 {
@@ -69,7 +70,7 @@ abstract class Client
      */
     public function getStripeClass()
     {
-        return app('Stripe\\'.studly_case($this->getClientName()));
+        return app('Stripe\\'.Str::studly($this->getClientName()));
     }
 
     /**
@@ -156,7 +157,7 @@ abstract class Client
      */
     protected function points($start, $end = null)
     {
-        if (str_contains($start, ['start', 'end'])) {
+        if (Str::contains($start, ['start', 'end'])) {
             return session()->get('accountant.api.'.$start);
         }
 
